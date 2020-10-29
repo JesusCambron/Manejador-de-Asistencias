@@ -6,7 +6,7 @@ const schema = new Schema({
     apellido:{type:String, required: true},
     correo:{type:String, required: true, unique:true},
     password:{type:String, required:true},
-    nombreInstitucion:{type:String},
+    nombreInstitucion:{type:String, required:false},
 },{timestamps:true});
 
 const model = mongoose.model("usuarios", schema);

@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const {jwtSecret} = require("../config");
 
 const signUp = async(req,res) =>{
-    console.log(req.body);
     try {
         const {nombre, apellido, correo, password,nombreInstitucion}= req.body;
         const passwordEncriptado = await bcrypt.encriptarPassword(password);
@@ -16,15 +15,14 @@ const signUp = async(req,res) =>{
 }
 
 const signIn = async(req,res)=>{
-    console.log(req.body);
     const {correo, password} = req.body;
     const correoEncontrado = await usuarioModel.findOne({correo});
     if(!correoEncontrado){
-        return res.send(`${correo} no registrado`);
+        return res.status(400).send(`${correo} no registrado`);
     }
     const passwordCorrecta = await bcrypt.compararPassword(password, correoEncontrado.password);
     if(!passwordCorrecta) {
-        return res.send(`Password ingresado incorrecto`);
+        return res.status(400).send(`Password ingresado incorrecto`);
     }
     const token = jwt.sign(JSON.stringify(correoEncontrado), jwtSecret);
     res.json({
