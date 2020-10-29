@@ -9,7 +9,7 @@ const schema = Joi.object({
     apellido: Joi.string().min(1).max(60).required(),
     correo: Joi.string().min(5).max(320).required(),
     password: Joi.string().pattern(new RegExp(regex_password)).required(),
-    nombreInstitucion: Joi.string()
+    nombreInstitucion: Joi.string().optional().allow("").min(3).max(50)
 });
 
 module.exports = schema;
