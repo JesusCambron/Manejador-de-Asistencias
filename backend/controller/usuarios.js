@@ -27,7 +27,13 @@ const signIn = async(req,res)=>{
         return res.send(`Password ingresado incorrecto`);
     }
     const token = jwt.sign(JSON.stringify(correoEncontrado), jwtSecret);
-    res.json({id:correoEncontrado._id,nombre:`${correoEncontrado.correo}`,token});
+    res.json({
+        id:correoEncontrado._id,
+        nombre:correoEncontrado.nombre,
+        apellido:correoEncontrado.apellido,
+        correo:correoEncontrado.correo,
+        token
+    });
 }
 
 module.exports = {
