@@ -17,7 +17,8 @@ const signUp = async(req,res) =>{
             token
         });
     } catch (error) {
-        res.send(error);
+        //res.send(error);
+        return res.status(400).send(error);
     }
 }
 
