@@ -38,7 +38,7 @@ class Signin extends React.Component{
         .then(user=>{
             if(user){
               this.props.loadUser(user,'signin')
-              this.props.onRouteChange('homepage')
+              this.props.onRouteChange('Menu')
             }
           })
     }
