@@ -36,6 +36,13 @@
                     padding-top: 115px;
                 }
 
+                & .errors{
+                    color: #EE7C2F;
+                    font-weight: bold;
+                    font-size: 18px;
+                    padding: 5px 0;
+                }
+
                 & .email-label,.pass-label{
                     font-family: 'Roboto', sans-serif;
                     color: #f3f3f3;

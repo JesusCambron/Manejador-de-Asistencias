@@ -3,13 +3,11 @@ import React from 'react'
 import './App.css';
 import Signin from './pages/Sign-in/sing-in.component';
 import Register from './pages/Register/register.component';
-import Homepage from './pages/HomePage/homepage.component';
-import TablaCursoGrupos from './pages/TablaCursosGrupos/TablaCursoGrupos';
-import Menu from './pages/Menu/Menu';
-import FormCurso from './pages/FormCurso/FormCurso';
-import FormCursoEditar from './pages/FormCursoEditar/FormCursoEditar';
+import Homepage from './pages/HomePage/homepage.component'
+// import TablaCursoGrupos from './pages/TablaCursosGrupos/TablaCursoGrupos';
+// import FormCurso from './pages/FormCurso/FormCurso';
+// import FormCursoEditar from './pages/FormCursoEditar/FormCursoEditar';
 
-console.log("Niaaaa")
 const initialState={
   user:{
     id:"",
@@ -68,17 +66,18 @@ class App extends React.Component{
     return (
       <>
           {
-          route==='homepage'?<Homepage usuario={this.state.user}/>
-          :route==='signin'?<Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
-          :route==="TablaCursoGrupos"?<TablaCursoGrupos loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos>
-          :route==="Menu"?<Menu onRouteChange={this.onRouteChange} ></Menu>
-          :route==="FormCurso"?<FormCurso onRouteChange={this.onRouteChange}></FormCurso>
-          :route==="FormCursoEditar"?<FormCursoEditar  onRouteChange={this.onRouteChange} curso={this.state.form} ></FormCursoEditar>:
-          (
-            route==='register'?
-            <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>:
-            <></>
-          )
+            route==='homepage'?<Homepage onRouteChange={this.onRouteChange  } usuario={user}/>
+            :route==='signin'?<Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
+            :(route==='register'?
+              <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>:
+              <></>
+          ) 
+
+          // :route==="TablaCursoGrupos"?<TablaCursoGrupos loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos>
+          // :route==="Menu"?<Menu onRouteChange={this.onRouteChange} ></Menu>
+          // :route==="FormCurso"?<FormCurso onRouteChange={this.onRouteChange}></FormCurso>
+          // :route==="FormCursoEditar"?<FormCursoEditar  onRouteChange={this.onRouteChange} curso={this.state.form} ></FormCursoEditar>:
+          
           }
       </>
     );
