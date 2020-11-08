@@ -4,7 +4,8 @@ const validarDatos = schema => {
             await schema.validateAsync(req.body);
             next();
         } catch (error) {
-            res.send(error.message);
+            //res.send(error.message);
+            res.status(400).send(error.message);
         }
     }
 }

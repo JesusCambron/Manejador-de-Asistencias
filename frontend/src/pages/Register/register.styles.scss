@@ -1,0 +1,87 @@
+.signin{
+        & .register-box{  
+            position: absolute;
+            overflow: inherit;
+            margin-top: 250px;
+            margin-bottom: 100px;
+            border: solid 1px #f3f3f3;
+            border-radius: 10px;
+            width: 800px;
+            height: 800px;
+            z-index: 1;
+            & .signin-icon{
+                background: -webkit-linear-gradient(to bottom, #283c86, #45a247); /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to bottom, #283c86, #45a247); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                clip-path: circle(50% at 50% 50%);
+                height: 200px;
+                width: 200px;
+                margin:auto;
+                z-index: 2;
+                position: relative;
+            }
+            & .signin-form{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                & .signin-input{
+                    margin-top: 15px;
+                }
+
+                & h3{
+                    color: #f3f3f3;
+                    font-size: 28px;
+                    padding-top: 40px;
+                }
+
+                & label{
+                    font-family: 'Roboto', sans-serif;
+                    color: #f3f3f3;
+                    font-size: 1.2rem;
+                    margin-left: 2rem;
+                    margin-top: 0.7rem;
+                    display: block;
+                    transition: all 0.3s;
+                    transform: translateY(0rem);
+                }
+               & input[type=email],input[type=password],input[type=text]{
+                    font-family: 'Roboto', sans-serif;
+                    color: #333;
+                    font-size: 1.2rem;
+                    margin:auto;
+                    padding: 1.5rem 2rem;
+                    border-radius: 0.2rem;
+                    background-color: rgb(255, 255, 255);
+                    border: none;
+                    width: 90%;
+                    display: block;
+                    border-bottom: 0.3rem solid transparent;
+                    transition: all 0.3s;
+               }
+               & input[type=email]:placeholder-shown+label,
+                input[type=password]:placeholder-shown+label,
+                input[type=text]:placeholder-shown+label{
+                    opacity: 0;
+                    visibility: hidden;
+                    -webkit-transform: translateY(-4rem);
+                    transform: translateY(-4rem);
+               }
+
+               & .input-btn{
+                   border: none;
+                   border-radius: 5px;
+                   padding: 15px 50px;
+                   background: #d9f0ed;
+               }
+
+               & .txt-span{
+                cursor: pointer;
+                font-weight: bold;
+                    &:hover{
+                    color: #f3f3f3;
+                    }
+                }  
+            }
+        }
+
+}
