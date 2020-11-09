@@ -1,52 +1,56 @@
 import React,{Component} from 'react'
-import {cursos} from '../Cursos'
+
 import './FormCursoEditar.css'
 
 class FormCursoEditar extends Component{
     constructor(props){
         super(props);
         this.state = {
-            cursos: cursos,
-            nombreIngresado:"",
-            horasIngresado:"",
-            unidadIngresado:"",
+            nombre:this.props.curso.nombre,
+            horas:this.props.curso.horas,
+            unidad:this.props.curso.unidad,
             
         }
+
     
     }
     
+editar=()=>{
+    const hor = Number(this.state.horas);
+    const uni = Number(this.state.unidad);
+    fetch(`http://localhost:3000/manejador/cursos/${this.props.curso.id}`,{
+        method:'put',
+        headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
+    }),
+        body:JSON.stringify({
+            
+            nombre: this.state.nombre,
+            horas: hor,
+            unidades : uni
+        }) 
+    }).then(response=>response.json())
+    .then(user=>{
+       console.log(user)
+        }).catch(err=>console.log(err))
 
-handleChange =e=>{
-    this.setState({
-        form:{
-            ...this.state.form,
-            [e.target.name]: e.target.value,
-        }
-    })
-}
-insertar=()=>{
-    var valorNuevo={id: this.props.curso.id, nombre: this.state.nombreIngresado, horas: this.state.horasIngresado, unidad: this.state.unidadIngresado};
-    var lista =this.state.cursos;
-
-    lista.map((user)=>{
-        if(user.id === valorNuevo.id){
-            console.log(user);
-        }
-    })
 }
 limpiarCampos=()=>{
     document.getElementById("nombre").value=""
     document.getElementById("horas").value=""
     document.getElementById("unidad").value=""
+    this.setState({ nombre:"",
+        horas:"",
+        unidad: "",})
 }
 onenombreChange=(e)=>{
-    this.setState({nombreIngresado:e.target.value})
+    this.setState({nombre:e.target.value})
+    console.log(this.state.nombre)
 }
 onehorasChange=(e)=>{
-    this.setState({horasIngresado:e.target.value})
+    this.setState({horas:e.target.value})
 }
 oneunidadChange=(e)=>{
-    this.setState({unidadIngresado:e.target.value})
+    this.setState({unidad:e.target.value})
 }
     
 
@@ -60,25 +64,24 @@ oneunidadChange=(e)=>{
 
                   
                      <div className="modal-entradas">
-                         
                             <div>
                                 <label>Nombre del curso: </label>
-                                <input className="curso-nombre" value={this.props.curso.nombre} type="text" name="nombre"  id="nombre" onChange={this.onenombreChange} placeholder="Nombre del curso"></input> 
+                                <input className="curso-nombre" value={this.state.nombre} type="text" name="nombre"  id="nombre" onChange={this.onenombreChange} placeholder="Nombre del curso"></input> 
                             </div>
 
                             <div>
                             <label>Horas a la semana: </label>         
-                            <input className="curso-horas" value={this.props.curso.horas} type="text" name="horas"  id="horas" onChange={this.onehorasChange} placeholder="Horas a la semana"></input>
+                            <input className="curso-horas" value={this.state.horas} type="text" name="horas"  id="horas" onChange={this.onehorasChange} placeholder="Horas a la semana"></input>
                             </div>
 
                             <div>
                             <label>Número de unidades: </label>
-                            <input className="curso-unidades" value={this.props.curso.unidad} type="text" name="unidad" id="unidad" onChange={this.oneunidadChange}  placeholder="Número de unidades"></input>
+                            <input className="curso-unidades" value={this.state.unidad} type="text" name="unidad" id="unidad" onChange={this.oneunidadChange}  placeholder="Número de unidades"></input>
                             </div>
                             </div>
                             <div className="botones">
-                            <button type ="submit"  className="boton-agregar">Agregar</button>
-                            <button className="boton-limpiar"  onClick={()=>this.limpiarCampos()}>Limpiar</button>
+                            <button type ="submit" onClick={this.editar} className="boton-agregar">Editar</button>
+                            <button className="boton-limpiar"  onClick={this.limpiarCampos}>Limpiar</button>
                             </div>
                          
              </div>

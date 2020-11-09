@@ -90,7 +90,7 @@ class Signin extends React.Component{
             this.props.loadUser(user)
             this.setState({isSignedIn:true})
             const validateUser=this.validateUser()
-            this.props.onRouteChange('homepage')
+            this.props.onRouteChange('Menu')
           })
           .catch(err=>{
             this.setState({isSignedIn:false})

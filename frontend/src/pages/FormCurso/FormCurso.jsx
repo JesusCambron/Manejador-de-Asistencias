@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import './FormCurso.css'
-import {cursos} from '../Cursos'
+//import {cursos} from '../Cursos'
 
 class FormCurso extends Component{
     constructor(props){
         super(props);
         this.state = {
-            cursos: cursos,
             form:{
                 id: "",
                 nombre:"",
@@ -15,6 +14,7 @@ class FormCurso extends Component{
             },
         }
     }
+    
 handleChange =e=>{
     this.setState({
         form:{
@@ -24,13 +24,23 @@ handleChange =e=>{
     })
 }
 insertar=()=>{
-    var valorNuevo={...this.state.form};
-    valorNuevo.id=this.state.cursos.length+1;
-    var lista =this.state.cursos;
-    lista.push(valorNuevo);
-    this.setState({cursos:lista})
-    console.log(lista)
-    this.props.onRouteChange('TablaCursoGrupos')
+
+    const hor = Number(this.state.form.horas);
+    const uni = Number(this.state.form.unidad);
+    console.log("nia")
+    fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
+            method:'post',
+            headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
+        }),
+            body:JSON.stringify({
+                nombre: this.state.form.nombre,
+                horas: hor,
+                unidades : uni
+            }) 
+        }).then(response=>response.json())
+        .then(user=>{
+           console.log(user)
+            }).catch(err=>console.log(err))
 
 }
 limpiarCampos=()=>{
@@ -68,7 +78,7 @@ limpiarCampos=()=>{
                             </div>
                             </div>
                             <div className="botones">
-                            <button  className="boton-agregar" onClick={()=>this.insertar()} value="Agregar">Agregar</button>
+                            <button  className="boton-agregar" onClick={this.insertar} value="Agregar">Agregar</button>
                             <button className="boton-limpiar" onClick={()=>this.limpiarCampos()} >Limpiar</button>
                             </div>
                             
