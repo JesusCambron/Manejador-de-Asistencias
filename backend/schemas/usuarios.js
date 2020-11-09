@@ -10,7 +10,7 @@ const schema = Joi.object({
     nombre: Joi.string().pattern(new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]+$")).required().min(1).max(45),
     apellido: Joi.string().pattern(new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]+$")).required().min(1).max(45),
     //correo: Joi.string().min(5).max(320).required(),
-    correo: Joi.string().email(),
+    correo: Joi.string().pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).required(),
     password: Joi.string().pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*)[A-Za-z\d][A-Za-z\d]{7,15}$/).required(),
     nombreInstitucion: Joi.string().optional().allow("").min(3).max(50)
 });
