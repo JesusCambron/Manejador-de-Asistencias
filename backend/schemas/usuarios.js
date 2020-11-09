@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const {regex_password} = require("../config")
+const {regex_email} = require("../config")
 /*La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
 NO puede tener otros símbolos.
 Ejemplo:

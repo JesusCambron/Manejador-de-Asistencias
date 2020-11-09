@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    }
+.full-width{
+    background-color: #00867D ;
+}
+.menu-head{
+    height: 70px;
+    
+	display: flex;
+    font-family: 'Roboto Mono', monospace;
+    
+}
+.menu-opciones{
+    
+    width: 1800px;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: space-around;
+}
+.menu-opciones a{
+
+    font-size: 20px;
+    margin: 15px;
+	color: black;
+	padding: 25px;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+.opcion-profesor{
+    display: flex;
+    text-transform: uppercase;
+  
+}
+.img-profesor{
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    background-image: url(https://1.bp.blogspot.com/_FlLnLokhtwA/SuNmXwyQw9I/AAAAAAAAH-Q/XPftAOkwiwc/s320/Manuel%2520Domitsu%2520Kono%252025.jpg);
+    background-size: 100% 100%;
+    border-radius: 50%;
+}
+.info-profesor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.menu-opciones-listado:hover >ul{
+    display: block;
+  
+}
+.menu-cursos{
+    display: none;
+    border: 1px solid black;
+    border-top: none;
+    position: absolute;
+    top: 70px;
+    text-align: center;
+    background-color: #00867D;
+    margin-left: 10px;
+    width: 350px;
+
+}
+.menu-cursos li{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    list-style: none;
+      
+}
+
+.menu-cursos a{
+    text-decoration: none;
+    padding: 20px 60px 20px 60px;
+}
+.menu-cursos a:hover{
+    background-color: #21a097 ;
+    border-radius: 0;
+}
+i{
+    font-size: 25px;
+    margin: 10px;
+    
+}
+

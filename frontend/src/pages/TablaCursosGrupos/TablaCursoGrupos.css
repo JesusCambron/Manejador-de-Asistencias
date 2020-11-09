@@ -1,0 +1,81 @@
+h2{
+    text-align: center;
+    font-size: 40px;
+    margin: 30px;
+}
+table{
+    border-collapse: collapse;
+    margin: auto;
+}
+table tr{
+    border: 1px solid black;
+    
+}
+table tr td{
+    padding: 10px;
+}
+.nombre-curso{
+    
+    width: 700px;
+    background-color: #0097A7;
+    color: white;
+    
+}
+.nombre{
+    background-color: #0097A7;
+}
+.botones button{
+    font-size: 20px;
+    padding: 20px 30px;
+    margin: 30px;
+    color: white;
+    border-radius: 15px;
+    border: 1px solid black;
+}
+.botones{
+    display: flex;
+    justify-content: center;
+}
+.boton-agregar{
+    background-color: #00C820;
+}
+.boton-editar{
+    background-color: #0097A7;
+}
+.boton-eliminar{
+    background-color: #F37575 ;
+}
+.modal{
+    background-color: white;
+    width: 800px;
+    height: 500px;
+    border: 2px solid black;
+    display: none;
+    margin: auto;
+    transform: translateY(-80%);
+}
+.modal h3{
+    text-align: center;
+    font-size: 40px;
+    margin: 30px;
+}
+.modal div{
+    display: flex;
+    justify-content: center;
+   
+}
+.modal-entradas{
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+   
+}
+.modal input{
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 40%;
+    padding: 10px;
+    margin: 5px auto;
+}
+
+
