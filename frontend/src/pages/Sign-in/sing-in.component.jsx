@@ -21,8 +21,8 @@ class Signin extends React.Component{
 
 
     validateUser = () =>{
-        const expEmail= RegExp(/^[a-zA-Z0-9.!#$%&'+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/)
-        const expPassword= RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)
+        const expEmail= RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+        const expPassword= RegExp(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*)[A-Za-z\d][A-Za-z\d]{7,15}$/)
         if(expPassword.test(this.state.signedPassword) && expEmail.test(this.state.signedEmail)){
             if(!this.state.isSignedIn){
                 this.setState({userNotFoundError:'Usuario no registrado'})
@@ -36,8 +36,8 @@ class Signin extends React.Component{
         }
 
     validateForm=()=>{
-        const expEmail= RegExp(/^[a-zA-Z0-9.!#$%&'+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/)
-        const expPassword= RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)
+        const expEmail= RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+        const expPassword= RegExp(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*)[A-Za-z\d][A-Za-z\d]{7,15}$/)
         if(this.state.signedEmail){
             if(!expEmail.test(this.state.signedEmail)){
                 this.setState({emailError:'Email inválido'})

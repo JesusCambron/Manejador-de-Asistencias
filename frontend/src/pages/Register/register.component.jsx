@@ -39,8 +39,8 @@ class Register extends React.Component{
 
     validateForm=()=>{
         const expNombre=RegExp(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]+$/)
-        const expEmail= RegExp(/^[a-zA-Z0-9.!#$%&'+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/)
-        const expPassword= RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)
+        const expEmail= RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+        const expPassword= RegExp(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*)[A-Za-z\d][A-Za-z\d]{7,15}$/)
         if(this.state.nombre){
             if(!expNombre.test(this.state.nombre)){
                 this.setState({nombreError:'Nombre inválido'})
@@ -137,10 +137,10 @@ class Register extends React.Component{
     }
     
     onnameChange=(e)=>{
-        this.setState({nombre:e.target.value})
+        this.setState({nombre:e.target.value.trim().replace(/\s\s+/g, ' ')})
     }
     onapellidoChange=(e)=>{
-        this.setState({apellido:e.target.value})
+        this.setState({apellido:e.target.value.trim().replace(/\s\s+/g, ' ')})
     }
     onemailChange=(e)=>{
         this.setState({correo:e.target.value})        
