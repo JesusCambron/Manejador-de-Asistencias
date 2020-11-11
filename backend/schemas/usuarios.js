@@ -6,11 +6,12 @@ NO puede tener otros símbolos.
 Ejemplo:
 w3Unpocodet0d0*/
 const schema = Joi.object({
-    nombre: Joi.string().min(1).max(45).required(),
-    apellido: Joi.string().min(1).max(60).required(),
-    //correo:  Joi.string().min(5).max(320).required(),
-    correo: Joi.string().pattern(new RegExp(regex_email)).required(),
-    password: Joi.string().pattern(new RegExp(regex_password)).required(),
+    //nombre: Joi.string().min(1).max(45).required(),
+    nombre: Joi.string().pattern(new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]+$")).required().min(1).max(45),
+    apellido: Joi.string().pattern(new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]+$")).required().min(1).max(45),
+    //correo: Joi.string().min(5).max(320).required(),
+    correo: Joi.string().pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).required(),
+    password: Joi.string().pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*)[A-Za-z\d][A-Za-z\d]{7,15}$/).required(),
     nombreInstitucion: Joi.string().optional().allow("").min(3).max(50)
 });
 
