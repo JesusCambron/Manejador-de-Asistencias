@@ -21,11 +21,6 @@ class Signin extends React.Component{
 
 
     validateUser = () =>{
-            // if(!this.state.isSignedIn){
-            //     this.setState({userNotFoundError:'Usuario no valido'})
-            // }else{
-            //     console.log(initialState);
-            // }
         const expEmail= RegExp(/^[a-zA-Z0-9.!#$%&'+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/)
         const expPassword= RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)
         if(expPassword.test(this.state.signedPassword) && expEmail.test(this.state.signedEmail)){
