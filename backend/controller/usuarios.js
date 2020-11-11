@@ -8,6 +8,7 @@ const signUp = async(req,res) =>{
         const {nombre, apellido, correo, password,nombreInstitucion}= req.body;
         const passwordEncriptado = await bcrypt.encriptarPassword(password);
         const correoEncontrado = await usuarioModel.create({nombre, apellido, correo,password:passwordEncriptado,nombreInstitucion});
+        
         const token = jwt.sign(JSON.stringify(correoEncontrado), jwtSecret);
         res.json({
             id:correoEncontrado._id,
