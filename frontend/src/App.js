@@ -64,6 +64,8 @@ class App extends React.Component{
 
   }
 
+
+
  
   
   
@@ -78,7 +80,8 @@ class App extends React.Component{
   }
 
   render(){
-    const {route,user}=this.state
+    const {route,user,cursos}=this.state
+  
     
     return (
       <>
@@ -86,10 +89,10 @@ class App extends React.Component{
             route==='homepage'?<Homepage onRouteChange={this.onRouteChange  } usuario={user}/>
             :route==='signin'?<Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
             :(route==='register'? <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
-            :route==="TablaCursoGrupos"? <div><Menu onRouteChange={this.onRouteChange}  loadListaCurso={this.loadListaCurso} usuario={user} ></Menu>  <TablaCursoGrupos loadListaCurso={this.loadListaCurso} usuario={user} cursos={this.state.cursos} loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos></div>  
+            :route==="TablaCursoGrupos"? <div><Menu onRouteChange={this.onRouteChange}  loadListaCurso={this.loadListaCurso} usuario={user} ></Menu>   <TablaCursoGrupos loadListaCurso={this.loadListaCurso} usuario={user} listaCursos={cursos} loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos>  </div>  
             :route==="Menu"?<Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>
-            :route==="FormCurso"? <div> <Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu> <FormCurso usuario={user} onRouteChange={this.onRouteChange}></FormCurso></div>
-            :route==="FormCursoEditar"?<div> <Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>  <FormCursoEditar  usuario={user} onRouteChange={this.onRouteChange} curso={this.state.form} ></FormCursoEditar></div>:
+            :route==="FormCurso"?         <div><Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu> <FormCurso usuario={user} onRouteChange={this.onRouteChange} listaCursos={cursos} loadListaCurso={this.loadListaCurso}></FormCurso></div>
+            :route==="FormCursoEditar"?   <div> <Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>  <FormCursoEditar  usuario={user} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} curso={this.state.form} ></FormCursoEditar></div>:
               <></>
           ) 
 

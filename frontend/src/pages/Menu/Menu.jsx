@@ -18,19 +18,16 @@ class Menu extends Component{
                
             }).then(response=>response.json())
             .then(listaCursos=>{
-                /*if(user){
-                    this.props.loadUser(user)
-                    this.props.onRouteChange('signin')
-                }*/
-               
+                
+        
                 this.props.loadListaCurso(listaCursos);
-               
+                this.props.onRouteChange('TablaCursoGrupos')
                 
                
                 }).catch(err=>console.log(err))
         
         
-        this.props.onRouteChange('TablaCursoGrupos')
+        
     }
 
     

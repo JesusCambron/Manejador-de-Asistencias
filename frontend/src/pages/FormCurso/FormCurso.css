@@ -44,8 +44,43 @@ h2{
 }
 .boton-limpiar{
     background-color: #0097A7;
-   
-  
+}
+
+.confirmar{
+    width: 500px;
+    height: 250px;
+    border: 1px solid black;
+    font-size: 10px;
+    position: absolute;
+    background-color: white;
+    top: 33%;
+    left: 33%;
+    text-align: center;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 33px;
+
+    
     
 }
+.confirmar-centro{
+    margin-top: 15%;
+}
+
+.confirmar-btns{
+    display: flex;
+    justify-content: center;
+}
+.confirmar-btns button{
+    padding: 30px 30px;
+    margin: 20px;
+    border-radius: 15px;
+    background-color: #00867D ;
+    color: white;
+    font-size: 20px;
+
+}
+
+
 

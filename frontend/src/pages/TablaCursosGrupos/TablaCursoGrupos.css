@@ -2,10 +2,16 @@ h2{
     text-align: center;
     font-size: 40px;
     margin: 30px;
+
+}
+.tamaño{
+    height: 40vh;
+    overflow-y: scroll;
 }
 table{
     border-collapse: collapse;
     margin: auto;
+
 }
 table tr{
     border: 1px solid black;
@@ -76,6 +82,47 @@ table tr td{
     width: 40%;
     padding: 10px;
     margin: 5px auto;
+}
+.confir-eliminar{
+    width: 500px;
+    height: 250px;
+    border: 1px solid black;
+    font-size: 10px;
+    position: absolute;
+    background-color: white;
+    top: 33%;
+    left: 33%;
+    text-align: center;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 33px;
+
+    
+    
+}
+.confir-centro{
+    margin-top: 13%;
+}
+
+.confir-btns{
+    display: flex;
+    justify-content: center;
+   
+}
+.confir-btns button{
+    padding: 15px 30px;
+    margin: 20px;
+    border-radius: 15px;
+    color: white;
+    font-size: 20px;
+
+}
+.si{
+    background-color: #00867D ;
+}
+.no{
+    background-color:salmon;
 }
 
 
