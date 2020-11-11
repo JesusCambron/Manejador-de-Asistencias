@@ -56,7 +56,7 @@ class Menu extends Component{
                         <li><a href = "4"><i className="fas fa-clipboard-check"></i>ver asistencia</a></li>
                         <li className="opcion-profesor">
                             <div className = "info-profesor">
-                                <h4>juan perez</h4>
+                                <h4>{this.props.nombreUsuario}</h4>
                                 <h4>profesor</h4>
                                 <p className="cerrar-sesion" onClick={this.cerrarSesion}>Cerrar Sesión</p>
                             </div>

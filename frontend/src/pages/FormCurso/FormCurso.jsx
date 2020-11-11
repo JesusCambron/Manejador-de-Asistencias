@@ -39,7 +39,7 @@ insertar=()=>{
             headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
         }),
             body:JSON.stringify({
-                nombre: this.state.form.nombre.trim(),
+                nombre: this.state.form.nombre.trim().replace(/\s\s+/g, ' '),
                 horas: hor,
                 unidades : uni
             })
@@ -77,15 +77,16 @@ ventanaConfirmacion=()=>{
 
 validarNombre=()=>{
     const expNombreCurso= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
-    const nombretrim = this.state.form.nombre.trim()
-    nombretrim.replaceAll("\\s{2,}", " ");
+    const nombretrim = this.state.form.nombre.trim().replace(/\s\s+/g, ' ')
     if(nombretrim === "" || !expNombreCurso.test(nombretrim) ){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }
     else{
         document.getElementById("nombre").style.border = "1px solid black"
+        
         return true
+        
     }
 }
 validarHoras=()=>{

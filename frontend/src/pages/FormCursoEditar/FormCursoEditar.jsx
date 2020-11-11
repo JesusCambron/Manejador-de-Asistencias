@@ -21,7 +21,7 @@ editar=()=>{
     }),
         body:JSON.stringify({
             
-            nombre: this.state.nombre,
+            nombre: this.state.nombre.trim().replace(/\s\s+/g, ' '),
             horas: hor,
             unidades : uni
         }) 

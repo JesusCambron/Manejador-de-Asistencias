@@ -21,15 +21,7 @@ class TablaCursoGrupos extends Component {
 
 
     handleChange = (e) => {
-        if (e.target.checked) {
             this.setState({ seleccion: e.target.value })
-
-        }
-        else {
-            this.setState({ seleccion: "" })
-
-        }
-
     }
 
     editarCurso = () => {
@@ -42,17 +34,20 @@ class TablaCursoGrupos extends Component {
         })
     }
 
+    
+        
+        
+    
 
     actualizarTabla = () => {
         this.setState({ cursos: this.state.cursos.filter(cur => cur._id != this.state.seleccion) })
         this.props.loadListaCurso(this.state.cursos);
-       
-        
-
+        this.setState({seleccion: ""})
     }
 
 
     eliminarCurso = () => {
+        console.log(this.state.seleccion)
         fetch(`http://localhost:3000/manejador/cursos/${this.state.seleccion}`, {
             method: 'delete',
             headers: new Headers({
@@ -72,12 +67,10 @@ class TablaCursoGrupos extends Component {
     }
 
     confirmarEliminar = () => {
-       
-            document.getElementsByClassName("confir-eliminar")[0].style.display = "block"
-        
-        
-       
-        
+            if(this.state.seleccion !== ""){
+                document.getElementsByClassName("confir-eliminar")[0].style.display = "block"
+            }
+            
     }
 
 
