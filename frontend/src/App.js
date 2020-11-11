@@ -9,14 +9,15 @@ import FormCurso from './pages/FormCurso/FormCurso';
 import FormCursoEditar from './pages/FormCursoEditar/FormCursoEditar';
 import Menu from './pages/Menu/Menu'
 
-const initialState={
+const initialState=
+{
   user:{
     id:"",
     nombre:"",
     apellido:"",
     password:"",
     correo:"",
-    token:''
+    token:'',
   },
   route:'signin',
   form: {
@@ -26,16 +27,12 @@ const initialState={
     unidad:""
   },
   cursos:[]
-  
-
-  
 }
 
 class App extends React.Component{
   constructor(){
     super()
     this.state=initialState
-    
   }
 
   loadUser=(data)=>{
@@ -64,21 +61,27 @@ class App extends React.Component{
 
   }
 
- 
-  
-  
-  
   onRouteChange = (route) =>{
-    // if(route==='signout'){
-    //   this.setState(initialstate)
-    // }else if(route === 'home'){
-    //   this.setState({isSignedIn:true})
-    // }
-    this.setState({route:route});
+    if(route==='signout'){
+      localStorage.removeItem('token')
+      this.setState(initialState)
+    }else{
+      this.setState({route:route});
+    }
+  }
+
+  componentDidMount(){
+    if(localStorage.getItem('token')){
+      const user=localStorage.getItem('token')
+      console.log(JSON.parse(user));
+      this.loadUser(JSON.parse(user))
+      this.setState({route:'Menu'})
+    }
   }
 
   render(){
-    const {route,user}=this.state
+    const {route,user,cursos}=this.state
+  
     
     return (
       <>
@@ -86,15 +89,12 @@ class App extends React.Component{
             route==='homepage'?<Homepage onRouteChange={this.onRouteChange  } usuario={user}/>
             :route==='signin'?<Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
             :(route==='register'? <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
-            :route==="TablaCursoGrupos"? <div><Menu onRouteChange={this.onRouteChange}  loadListaCurso={this.loadListaCurso} usuario={user} ></Menu>  <TablaCursoGrupos loadListaCurso={this.loadListaCurso} usuario={user} cursos={this.state.cursos} loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos></div>  
-            :route==="Menu"?<Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>
-            :route==="FormCurso"? <div> <Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu> <FormCurso usuario={user} onRouteChange={this.onRouteChange}></FormCurso></div>
-            :route==="FormCursoEditar"?<div> <Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>  <FormCursoEditar  usuario={user} onRouteChange={this.onRouteChange} curso={this.state.form} ></FormCursoEditar></div>:
+            :route==="TablaCursoGrupos"? <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange}  loadListaCurso={this.loadListaCurso} usuario={user} ></Menu>   <TablaCursoGrupos loadListaCurso={this.loadListaCurso} usuario={user} listaCursos={cursos} loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos>  </div>  
+            :route==="Menu"?<Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>
+            :route==="FormCurso"?         <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu> <FormCurso usuario={user} onRouteChange={this.onRouteChange} listaCursos={cursos} loadListaCurso={this.loadListaCurso}></FormCurso></div>
+            :route==="FormCursoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>  <FormCursoEditar  usuario={user} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} curso={this.state.form} ></FormCursoEditar></div>:
               <></>
-          ) 
-
-          
-          
+            ) 
           }
       </>
     );

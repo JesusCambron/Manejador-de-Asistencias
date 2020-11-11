@@ -9,10 +9,7 @@ class FormCursoEditar extends Component{
             nombre:this.props.curso.nombre,
             horas:this.props.curso.horas,
             unidad:this.props.curso.unidad,
-            
         }
-
-    
     }
     
 editar=()=>{
@@ -24,7 +21,7 @@ editar=()=>{
     }),
         body:JSON.stringify({
             
-            nombre: this.state.nombre,
+            nombre: this.state.nombre.trim().replace(/\s\s+/g, ' '),
             horas: hor,
             unidades : uni
         }) 
@@ -33,7 +30,25 @@ editar=()=>{
        console.log(user)
         }).catch(err=>console.log(err))
 
+
+        fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
+                method:'get',
+                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
+            })
+               
+            }).then(response=>response.json())
+            .then(listaCursos=>{
+                
+        
+                this.props.loadListaCurso(listaCursos);
+                
+                
+               
+                }).catch(err=>console.log(err))
+
 }
+
+
 limpiarCampos=()=>{
     document.getElementById("nombre").value=""
     document.getElementById("horas").value=""
@@ -53,6 +68,61 @@ oneunidadChange=(e)=>{
     this.setState({unidad:e.target.value})
 }
     
+ventanaConfirmacion=()=>{
+    if(this.validarNombre()===false || this.validarHoras()===false || this.validarUnidades()===false){
+        return false
+    }
+    this.editar()
+    
+  
+    document.getElementById("nombre").style.border = "1px solid black"
+    document.getElementById("horas").style.border = "1px solid black"
+    document.getElementById("unidad").style.border = "1px solid black"
+    document.getElementsByClassName("confirmar")[0].style.display = "block";
+}    
+
+validarNombre=()=>{
+    const expNombreCurso= RegExp(/^.{1,35}$/)
+    const nombretrim = this.state.nombre.trim()
+    nombretrim.replaceAll("\\s{2,}", " ");
+    if(nombretrim === "" || !expNombreCurso.test(nombretrim) ){
+        document.getElementById("nombre").style.border = "1px solid red"
+        return false
+    }
+    else{
+        document.getElementById("nombre").style.border = "1px solid black"
+        return true
+
+    }
+}
+
+validarHoras=()=>{
+    const expNumero = RegExp(/^\d{1,3}$/)
+
+    if(!expNumero.test(this.state.horas)){
+        document.getElementById("horas").style.border = "1px solid red"
+        return false
+    }
+    else{
+        document.getElementById("horas").style.border = "1px solid black"
+        return true
+       
+    }
+
+    
+}
+validarUnidades=()=>{
+    const expNumero = RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
+    if(!expNumero.test(this.state.unidad)){
+        document.getElementById("unidad").style.border = "1px solid red"
+        return false
+    }
+    else{
+        document.getElementById("unidad").style.border = "1px solid black"
+        return true
+    }
+}
+
 
     render(){
         return(
@@ -80,9 +150,20 @@ oneunidadChange=(e)=>{
                             </div>
                             </div>
                             <div className="botones">
-                            <button type ="submit" onClick={this.editar} className="boton-agregar">Editar</button>
+                            <button type ="submit" onClick={this.ventanaConfirmacion} className="boton-agregar">Editar</button>
                             <button className="boton-limpiar"  onClick={this.limpiarCampos}>Limpiar</button>
                             </div>
+
+                            <div className="confirmar">
+                                 <div className="confirmar-centro">
+                                <h1>Se ha editado el curso</h1>
+                                <div className="confirmar-btns">
+                                    <button className="si" onClick={()=>document.getElementsByClassName("confirmar")[0].style.display = "none"}>Aceptar</button>
+                                </div>
+
+                        </div>
+                        
+                    </div>
                          
              </div>
             
