@@ -85,6 +85,8 @@ class Signin extends React.Component{
             this.props.loadUser(user)
             this.setState({isSignedIn:true})
             const validateUser=this.validateUser()
+            localStorage.setItem('token',JSON.stringify(user))
+            console.log(localStorage);
             this.props.onRouteChange('Menu')
           })
           .catch(err=>{

@@ -10,7 +10,7 @@ class Menu extends Component{
        
     }
     mostrar=()=>{
-        
+
             fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
                 method:'get',
                 headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
@@ -33,10 +33,14 @@ class Menu extends Component{
         this.props.onRouteChange('TablaCursoGrupos')
     }
 
+    cerrarSesion=()=>{
+        localStorage.removeItem('token')
+        this.props.onRouteChange('signout')
+    }
+
     
     render(){
         return(
-        
             <div className="full-width">
                 <nav className= "menu-head">
                     <ul className="menu-opciones">
@@ -57,6 +61,7 @@ class Menu extends Component{
                             <div className = "info-profesor">
                                 <h4>juan perez</h4>
                                 <h4>profesor</h4>
+                                <p className="cerrar-sesion" onClick={this.cerrarSesion}>Cerrar Sesión</p>
                             </div>
                             <div className="img-profesor" /*src="https://1.bp.blogspot.com/_FlLnLokhtwA/SuNmXwyQw9I/AAAAAAAAH-Q/XPftAOkwiwc/s320/Manuel%2520Domitsu%2520Kono%252025.jpg"*/></div>
                         </li>
