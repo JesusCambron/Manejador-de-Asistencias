@@ -6,6 +6,7 @@ class FormCursoEditar extends Component{
     constructor(props){
         super(props);
         this.state = {
+            cursos: this.props.listaCursos,
             nombre:this.props.curso.nombre,
             horas:this.props.curso.horas,
             unidad:this.props.curso.unidad,
@@ -30,7 +31,7 @@ editar=()=>{
        console.log(user)
         }).catch(err=>console.log(err))
 
-
+/*
         fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
                 method:'get',
                 headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
@@ -45,6 +46,7 @@ editar=()=>{
                 
                
                 }).catch(err=>console.log(err))
+                */
 
 }
 
@@ -79,13 +81,22 @@ ventanaConfirmacion=()=>{
     document.getElementById("horas").style.border = "1px solid black"
     document.getElementById("unidad").style.border = "1px solid black"
     document.getElementsByClassName("confirmar")[0].style.display = "block";
-}    
+}   
+
+/*
+nombreRepetido=()=>{
+    const lista = this.state.cursos.filter(curs => curs.nombre === this.state.nombre)
+    if(lista.length === 1){
+        return false
+    }
+}
+*/
 
 validarNombre=()=>{
     const expNombreCurso= RegExp(/^.{1,35}$/)
     const nombretrim = this.state.nombre.trim()
     nombretrim.replaceAll("\\s{2,}", " ");
-    if(nombretrim === "" || !expNombreCurso.test(nombretrim) ){
+    if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }

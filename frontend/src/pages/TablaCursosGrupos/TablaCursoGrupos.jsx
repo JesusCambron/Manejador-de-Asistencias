@@ -41,7 +41,7 @@ class TablaCursoGrupos extends Component {
 
     actualizarTabla = () => {
         this.setState({ cursos: this.state.cursos.filter(cur => cur._id != this.state.seleccion) })
-        this.props.loadListaCurso(this.state.cursos);
+        this.props.loadListaCurso(this.state.cursos.filter(cur => cur._id != this.state.seleccion));
         this.setState({seleccion: ""})
     }
 

@@ -92,7 +92,7 @@ class App extends React.Component{
             :route==="TablaCursoGrupos"? <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange}  loadListaCurso={this.loadListaCurso} usuario={user} ></Menu>   <TablaCursoGrupos loadListaCurso={this.loadListaCurso} usuario={user} listaCursos={cursos} loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos>  </div>  
             :route==="Menu"?<Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>
             :route==="FormCurso"?         <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu> <FormCurso usuario={user} onRouteChange={this.onRouteChange} listaCursos={cursos} loadListaCurso={this.loadListaCurso}></FormCurso></div>
-            :route==="FormCursoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>  <FormCursoEditar  usuario={user} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} curso={this.state.form} ></FormCursoEditar></div>:
+            :route==="FormCursoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>  <FormCursoEditar  usuario={user}  listaCursos={cursos} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} curso={this.state.form} ></FormCursoEditar></div>:
               <></>
             ) 
           }
