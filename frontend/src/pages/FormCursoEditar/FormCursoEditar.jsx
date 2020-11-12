@@ -112,7 +112,7 @@ validarHoras=()=>{
     
 }
 validarUnidades=()=>{
-    const expNumero = RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
+    const expNumero = RegExp(/^\d{1,3}$/)
     if(!expNumero.test(this.state.unidad)){
         document.getElementById("unidad").style.border = "1px solid red"
         return false
