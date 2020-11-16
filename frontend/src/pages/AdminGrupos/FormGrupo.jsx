@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import './FormCurso.css'
+import './FormGrupo.css'
 //import {cursos} from '../Cursos'
 
-class FormCurso extends Component{
+class FormGrupo extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -12,17 +12,22 @@ class FormCurso extends Component{
                 horas:"",
                 unidad:""
             },
+            nuevoGrupo:{
+                curso:"",
+                grupo:""
+            }
         }
-        console.log(this.state.cursos)
+
     }
     
 handleChange =e=>{
     this.setState({
-        form:{
-            ...this.state.form,
+        nuevoGrupo:{
+            ...this.state.nuevoGrupo,
             [e.target.name]: e.target.value,
         }
     })
+    console.log(this.state.nuevoGrupo)
 }
 insertar=()=>{
 
@@ -134,6 +139,8 @@ validarHoras=()=>{
     }
 
 
+
+
     render(){
         return(
             
@@ -144,24 +151,25 @@ validarHoras=()=>{
 
                   
                      <div className="modal-entradas">
-                         
-                            <div>
-                                <label>Nombre del curso: </label>
-                                <input className="curso-nombre" required type="text" name="nombre" id="nombre" onChange={this.handleChange} placeholder="Nombre del curso"></input> 
+
+
+                         <div className="segmento"> 
+                         <label className="labelito">Curso: </label>
+                         <select name = "curso" onChange={this.handleChange} className="combo-cursos">
+                             <option>Seleccione un curso</option>
+                             {this.state.cursos.map(cur=> 
+                                <option>{cur.nombre}</option>)
+                             }
+
+                         </select>
+                         </div>
+                        <div className="segmento">
+                            <label className="labelito">Grupo: </label>
+                            <input className="curso-nombre" required type="text" name="grupo" id="nombre" onChange={this.handleChange} placeholder="Nombre del curso"></input> 
                                
-                            </div>
+                        </div>
 
-                            <div>
-                            <label>Horas a la semana: </label>         
-                            <input className="curso-horas" required type="text" name="horas"  id="horas" onChange={this.handleChange} placeholder="Horas a la semana"></input>
                             
-                            </div>
-
-                            <div>
-                            <label>Número de unidades: </label>
-                            <input className="curso-unidades"  required type="text" name="unidad" id="unidad" onChange={this.handleChange}  placeholder="Número de unidades"></input>
-                            
-                            </div>
                     </div>
 
                             <div className="botones">
@@ -188,4 +196,4 @@ validarHoras=()=>{
     
 }
 
-export default FormCurso;
+export default FormGrupo;

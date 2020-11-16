@@ -1,8 +1,8 @@
 import React,{Component} from 'react'
 
-import './FormCursoEditar.css'
+import './FormGrupoEditar.css'
 
-class FormCursoEditar extends Component{
+class FormGrupoEditar extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -185,4 +185,4 @@ validarUnidades=()=>{
     
 }
 
-export default FormCursoEditar;
+export default FormGrupoEditar;
