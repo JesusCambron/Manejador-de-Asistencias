@@ -14,6 +14,7 @@ class FormCurso extends Component{
                 unidad:""
             },
         }
+        console.log(this.state.cursos)
     }
     
 handleChange =e=>{
@@ -23,7 +24,6 @@ handleChange =e=>{
             [e.target.name]: e.target.value,
         }
     })
-    console.log(this.state.form.nombre)
 }
 insertar=()=>{
 
@@ -32,12 +32,16 @@ insertar=()=>{
     const hor = Number(this.state.form.horas);
     const uni = Number(this.state.form.unidad);
 
-    
-    
+
+    const lista = this.state.cursos;
+    const obj = {nombre: this.state.form.nombre.trim().replace(/\s\s+/g, ' '), horas: hor, unidades:uni}
+    lista.push(obj)
+    this.setState({cursos: lista})
+
     fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
-            method:'post',
             headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
-        }),
+            }),
+            method:'post',
             body:JSON.stringify({
                 nombre: this.state.form.nombre.trim().replace(/\s\s+/g, ' '),
                 horas: hor,
@@ -45,11 +49,15 @@ insertar=()=>{
             })
             
         }).then(response=>response.json())
-        .then(
-            ).catch()
+        .then()
+        .catch(err => console.log(err))
 
             
 }
+
+
+
+
 limpiarCampos=()=>{
     document.getElementById("nombre").value=""
     document.getElementById("horas").value=""
@@ -58,12 +66,13 @@ limpiarCampos=()=>{
 
 }
 ventanaConfirmacion=()=>{
-    
     if(this.validarNombre()===false || this.validarHoras()===false  || this.validarUnidades()===false) {
         return false
     }
     
+   
     this.insertar()
+    this.setState({})
     this.limpiarCampos()
     
 
@@ -75,10 +84,19 @@ ventanaConfirmacion=()=>{
    
 }    
 
+nombreRepetido=()=>{
+    const lista = this.state.cursos.filter(curs => curs.nombre === this.state.form.nombre)
+    if(lista.length === 1){
+        return false
+    }
+}
+
+
 validarNombre=()=>{
     const expNombreCurso= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
     const nombretrim = this.state.form.nombre.trim().replace(/\s\s+/g, ' ')
-    if(nombretrim === "" || !expNombreCurso.test(nombretrim) ){
+
+    if(nombretrim === "" || !expNombreCurso.test(nombretrim) || this.nombreRepetido() === false){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }
