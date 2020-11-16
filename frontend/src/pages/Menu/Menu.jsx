@@ -25,9 +25,13 @@ class Menu extends Component{
                 
                
                 }).catch(err=>console.log(err))
-        
-        
-        
+    }
+
+
+    mostrarGrupo=()=>{
+
+        this.props.onRouteChange('TablaGrupos')
+
     }
 
     cerrarSesion=()=>{
@@ -49,11 +53,11 @@ class Menu extends Component{
                                         <a onClick={this.mostrar}  >administrar cursos</a>
                                     </li>
                                     <li>
-                                    <a>administrar grupos</a>
+                                    <a onClick={this.mostrarGrupo}>administrar grupos</a>
                                     </li> 
                                 </ul>
                         </li>
-                        <li><a href = "4"><i className="fas fa-clipboard-check"></i>ver asistencia</a></li>
+                        <li><i className="fas fa-clipboard-check"></i>ver asistencia</li>
                         <li className="opcion-profesor">
                             <div className = "info-profesor">
                                 <h4>{this.props.nombreUsuario}</h4>

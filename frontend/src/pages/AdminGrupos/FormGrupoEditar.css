@@ -1,0 +1,84 @@
+h2{
+    text-align: center;
+    font-size: 40px;
+    margin: 40px;
+}
+
+.modal-entradas{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+
+}
+.modal-entradas input{
+    font-size: 20px;
+    width: 300px;
+    margin: 5px 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.modal-entradas div{
+    margin: 0 auto;
+}
+.modal-entradas label{
+    font-size: 30px;
+}
+.botones{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+.botones button{
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 30px;
+    border: 0.5px solid black;
+    font-size: 20px;
+    
+}
+.boton-agregar{
+    
+    background-color: #00C820;
+}
+.boton-limpiar{
+    background-color: #0097A7;
+   
+  
+    
+}
+.confirmar{
+    width: 500px;
+    height: 250px;
+    border: 1px solid black;
+    font-size: 10px;
+    position: absolute;
+    background-color: white;
+    top: 33%;
+    left: 33%;
+    text-align: center;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 33px;
+
+    
+    
+}
+.confirmar-centro{
+    margin-top: 15%;
+}
+
+.confirmar-btns{
+    display: flex;
+    justify-content: center;
+}
+.confirmar-btns button{
+    padding: 15px 30px;
+    margin: 20px;
+    border-radius: 15px;
+    background-color: #00867D ;
+    color: white;
+    font-size: 20px;
+}
