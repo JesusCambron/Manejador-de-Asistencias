@@ -22,12 +22,7 @@ class TablaCursoGrupos extends Component{
     handleChange=(e)=>{
         if(e.target.checked){
             this.setState({seleccion: e.target.value})
-            console.log(this.state.seleccion)
         }
-        else{
-            this.setState({seleccion: ""})
-        }
-        
     }
 
     editarCurso=(e)=>{
