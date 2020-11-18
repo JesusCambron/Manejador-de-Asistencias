@@ -1,0 +1,10 @@
+.titulo-miscursos{
+    text-align: center;
+    margin: 20px;
+    font-size: 40px;
+}
+.carta-grupos{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

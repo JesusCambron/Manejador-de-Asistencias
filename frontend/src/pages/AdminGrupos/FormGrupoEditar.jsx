@@ -7,95 +7,89 @@ class FormGrupoEditar extends Component{
         super(props);
         this.state = {
             cursos: this.props.listaCursos,
+              
+                idCurso: this.props.grupo.idCurso,
+                nombreGrupo: this.props.grupo.nombreGrupo
+            
+            /*
+            cursos: this.props.listaCursos,
             nombre:this.props.curso.nombre,
             horas:this.props.curso.horas,
-            unidad:this.props.curso.unidad,
+            unidad:this.props.curso.unidad*/
         }
+     
     }
     
 editar=()=>{
-    const hor = Number(this.state.horas);
-    const uni = Number(this.state.unidad);
-    fetch(`http://localhost:3000/manejador/cursos/${this.props.curso.id}`,{
+   
+    fetch(`http://localhost:3000/manejador/grupos/${this.props.grupo.idGrupo}`,{
         method:'put',
         headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
     }),
         body:JSON.stringify({
-            
-            nombre: this.state.nombre.trim().replace(/\s\s+/g, ' '),
-            horas: hor,
-            unidades : uni
+            idCurso: this.state.idCurso,
+            nombreGrupo: this.state.nombreGrupo.trim().replace(/\s\s+/g, ' '),
         }) 
     }).then(response=>response.json())
     .then(user=>{
        console.log(user)
         }).catch(err=>console.log(err))
 
-/*
-        fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
-                method:'get',
-                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
-            })
-               
-            }).then(response=>response.json())
-            .then(listaCursos=>{
-                
-        
-                this.props.loadListaCurso(listaCursos);
-                
-                
-               
-                }).catch(err=>console.log(err))
-                */
-
 }
 
 
 limpiarCampos=()=>{
     document.getElementById("nombre").value=""
-    document.getElementById("horas").value=""
-    document.getElementById("unidad").value=""
-    this.setState({ nombre:"",
-        horas:"",
-        unidad: "",})
+    this.setState({ nuevoGrupo:{
+        nombreGrupo: ""
+        }
+    })
 }
-onenombreChange=(e)=>{
-    this.setState({nombre:e.target.value})
-    console.log(this.state.nombre)
+
+handleChange =e=>{
+    const index = e.target.selectedIndex
+   const value = e.target.options[index].value;
+   const nombre= e.target.options[index].text
+
+    this.setState({
+       
+            idCurso: value,
+            curso: nombre,
+    
+        
+    })    
 }
-onehorasChange=(e)=>{
-    this.setState({horas:e.target.value})
-}
-oneunidadChange=(e)=>{
-    this.setState({unidad:e.target.value})
+
+handleNombre = e =>{
+    this.setState({
+       
+            
+            nombreGrupo: e.target.value
+
+        
+        
+    })
+    console.log(this.state.nuevoGrupo)
 }
     
 ventanaConfirmacion=()=>{
-    if(this.validarNombre()===false || this.validarHoras()===false || this.validarUnidades()===false){
+    
+    if(this.validarNombre()===false){
         return false
     }
+    
+
     this.editar()
     
   
     document.getElementById("nombre").style.border = "1px solid black"
-    document.getElementById("horas").style.border = "1px solid black"
-    document.getElementById("unidad").style.border = "1px solid black"
     document.getElementsByClassName("confirmar")[0].style.display = "block";
 }   
 
-/*
-nombreRepetido=()=>{
-    const lista = this.state.cursos.filter(curs => curs.nombre === this.state.nombre)
-    if(lista.length === 1){
-        return false
-    }
-    
-}
-*/
 
 validarNombre=()=>{
     const expNombreCurso= RegExp(/^.{1,35}$/)
-    const nombretrim = this.state.nombre.trim()
+    const nombretrim = this.state.nombreGrupo.trim()
     nombretrim.replaceAll("\\s{2,}", " ");
     if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
         document.getElementById("nombre").style.border = "1px solid red"
@@ -108,32 +102,7 @@ validarNombre=()=>{
     }
 }
 
-validarHoras=()=>{
-    const expNumero = RegExp(/^\d{1,3}$/)
 
-    if(!expNumero.test(this.state.horas)){
-        document.getElementById("horas").style.border = "1px solid red"
-        return false
-    }
-    else{
-        document.getElementById("horas").style.border = "1px solid black"
-        return true
-       
-    }
-
-    
-}
-validarUnidades=()=>{
-    const expNumero = RegExp(/^\d{1,3}$/)
-    if(!expNumero.test(this.state.unidad)){
-        document.getElementById("unidad").style.border = "1px solid red"
-        return false
-    }
-    else{
-        document.getElementById("unidad").style.border = "1px solid black"
-        return true
-    }
-}
 
 
     render(){
@@ -141,26 +110,30 @@ validarUnidades=()=>{
             
             <div>
                 
-                <h2>Editar Curso </h2>
+                <h2>Editar Grupo </h2>
                   
 
                   
                      <div className="modal-entradas">
-                            <div>
-                                <label>Nombre del curso: </label>
-                                <input className="curso-nombre" value={this.state.nombre} type="text" name="nombre"  id="nombre" onChange={this.onenombreChange} placeholder="Nombre del curso"></input> 
-                            </div>
+                     <div className="segmento"> 
+                         <label className="labelito">Curso: </label>
+                         <select name = "curso" onChange={this.handleChange}  id = "combo-cursos" className="combo-cursos">
+                         {this.state.cursos.map(cur=>
+                                
+                                cur._id === this.state.idCurso ? <option selected key={cur._id} value={cur._id}>{cur.nombre}</option>:
+                                <option key={cur._id} value={cur._id}>{cur.nombre}</option> 
+                                )}
+                                
+                         </select>
+                         </div>
 
-                            <div>
-                            <label>Horas a la semana: </label>         
-                            <input className="curso-horas" value={this.state.horas} type="text" name="horas"  id="horas" onChange={this.onehorasChange} placeholder="Horas a la semana"></input>
-                            </div>
-
-                            <div>
-                            <label>Número de unidades: </label>
-                            <input className="curso-unidades" value={this.state.unidad} type="text" name="unidad" id="unidad" onChange={this.oneunidadChange}  placeholder="Número de unidades"></input>
-                            </div>
-                            </div>
+                        <div className="segmento">
+                            <label className="labelito">Grupo: </label>
+                            <input className="grupo-nombre"  value={this.state.nombreGrupo}  type="text" onChange={this.handleNombre} name="nombreGrupo" id="nombre"  placeholder="Nombre del grupo"></input> 
+                               
+                        </div>
+                    </div>
+                           
                             <div className="botones">
                             <button type ="submit" onClick={this.ventanaConfirmacion} className="boton-agregar">Editar</button>
                             <button className="boton-limpiar"  onClick={this.limpiarCampos}>Limpiar</button>

@@ -1,60 +1,73 @@
 import React, {Component} from 'react';
 import './FormGrupo.css'
-//import {cursos} from '../Cursos'
 
 class FormGrupo extends Component{
     constructor(props){
         super(props);
         this.state = {
             cursos: this.props.listaCursos,
-            form:{
-                nombre:"",
-                horas:"",
-                unidad:""
-            },
+            
             nuevoGrupo:{
+                idCurso: "",
                 curso:"",
-                grupo:""
+                nombreGrupo:"",
             }
         }
+
+        
 
     }
     
 handleChange =e=>{
+    const index = e.target.selectedIndex
+   const value = e.target.options[index].value;
+   const nombre= e.target.options[index].text
+
+    this.setState({
+        nuevoGrupo:{
+            idCurso: value,
+            curso: nombre,
+    
+        }
+    })
+    console.log(this.state.nuevoGrupo)
+    
+}
+
+handleNombre = e =>{
     this.setState({
         nuevoGrupo:{
             ...this.state.nuevoGrupo,
-            [e.target.name]: e.target.value,
+            nombreGrupo: document.getElementById("nombre").value
+
         }
+        
     })
     console.log(this.state.nuevoGrupo)
 }
 insertar=()=>{
-
-    
-
-    const hor = Number(this.state.form.horas);
-    const uni = Number(this.state.form.unidad);
-
-
+/* Para que no se pueda agregar el mismo curso
     const lista = this.state.cursos;
     const obj = {nombre: this.state.form.nombre.trim().replace(/\s\s+/g, ' '), horas: hor, unidades:uni}
     lista.push(obj)
     this.setState({cursos: lista})
-
-    fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
+*/
+    fetch(`http://localhost:3000/manejador/grupos/${this.props.usuario.id}`,{
             headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
             }),
             method:'post',
             body:JSON.stringify({
-                nombre: this.state.form.nombre.trim().replace(/\s\s+/g, ' '),
-                horas: hor,
-                unidades : uni
+
+                idCurso: this.state.nuevoGrupo.idCurso,
+                nombreGrupo: this.state.nuevoGrupo.nombreGrupo.trim().replace(/\s\s+/g, ' '),
+                
             })
             
         }).then(response=>response.json())
         .then()
         .catch(err => console.log(err))
+
+        console.log(this.state.nuevoGrupo)
 
             
 }
@@ -64,13 +77,13 @@ insertar=()=>{
 
 limpiarCampos=()=>{
     document.getElementById("nombre").value=""
-    document.getElementById("horas").value=""
-    document.getElementById("unidad").value=""
-    this.setState({form:{nombre:"",horas:"",unidad:""}})
+  
+   
 
 }
 ventanaConfirmacion=()=>{
-    if(this.validarNombre()===false || this.validarHoras()===false  || this.validarUnidades()===false) {
+    
+    if(this.validarNombre()===false || this.state.nuevoGrupo.idCurso == ""){
         return false
     }
     
@@ -82,25 +95,17 @@ ventanaConfirmacion=()=>{
 
 
     document.getElementById("nombre").style.border = "1px solid black"
-    document.getElementById("horas").style.border = "1px solid black"
-    document.getElementById("unidad").style.border = "1px solid black"
     document.getElementsByClassName("confirmar")[0].style.display = "block";
    
 }    
 
-nombreRepetido=()=>{
-    const lista = this.state.cursos.filter(curs => curs.nombre === this.state.form.nombre)
-    if(lista.length === 1){
-        return false
-    }
-}
 
 
 validarNombre=()=>{
     const expNombreCurso= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
-    const nombretrim = this.state.form.nombre.trim().replace(/\s\s+/g, ' ')
+    const nombretrim = this.state.nuevoGrupo.nombreGrupo.trim().replace(/\s\s+/g, ' ')
 
-    if(nombretrim === "" || !expNombreCurso.test(nombretrim) || this.nombreRepetido() === false){
+    if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }
@@ -111,32 +116,6 @@ validarNombre=()=>{
         
     }
 }
-validarHoras=()=>{
-    const expNumero = RegExp(/^\d{1,3}$/)
-
-    if(!expNumero.test(this.state.form.horas)){
-        document.getElementById("horas").style.border = "1px solid red"
-        return false
-    }
-    else{
-        document.getElementById("horas").style.border = "1px solid black"
-        return true
-       
-    }
-
-}
-
-    validarUnidades=()=>{
-        const expNumero = RegExp(/^\d{1,3}$/)
-        if(!expNumero.test(this.state.form.unidad)){
-            document.getElementById("unidad").style.border = "1px solid red"
-            return false
-        }
-        else{
-            document.getElementById("unidad").style.border = "1px solid black"
-            return true
-        }
-    }
 
 
 
@@ -146,7 +125,7 @@ validarHoras=()=>{
             
             <div>
                 
-                <h2>Curso Nuevo</h2>
+                <h2>Grupo Nuevo</h2>
                   
 
                   
@@ -155,17 +134,17 @@ validarHoras=()=>{
 
                          <div className="segmento"> 
                          <label className="labelito">Curso: </label>
-                         <select name = "curso" onChange={this.handleChange} className="combo-cursos">
-                             <option>Seleccione un curso</option>
+                         <select name = "curso" onChange={this.handleChange}  id = "combo-cursos" className="combo-cursos">
+                             <option  value="">Seleccione un curso</option>
                              {this.state.cursos.map(cur=> 
-                                <option>{cur.nombre}</option>)
-                             }
+                                <option value={cur._id}>{cur.nombre}</option>
+                                )}
 
                          </select>
                          </div>
                         <div className="segmento">
                             <label className="labelito">Grupo: </label>
-                            <input className="curso-nombre" required type="text" name="grupo" id="nombre" onChange={this.handleChange} placeholder="Nombre del curso"></input> 
+                            <input className="grupo-nombre" required type="text" onChange={this.handleNombre} name="nombreGrupo" id="nombre"  placeholder="Nombre del grupo"></input> 
                                
                         </div>
 
@@ -179,7 +158,7 @@ validarHoras=()=>{
                     
                     <div className="confirmar">
                         <div className="confirmar-centro">
-                            <h1>Se ha guardado un nuevo curso</h1>
+                            <h1>Se ha guardado un nuevo grupo</h1>
                             <div className="confirmar-btns">
                                 <button className="si" onClick={()=>document.getElementsByClassName("confirmar")[0].style.display = "none"}>Aceptar</button>
                             </div>

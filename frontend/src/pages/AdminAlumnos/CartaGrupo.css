@@ -1,0 +1,24 @@
+.tamaño-carta{
+    border-radius: 30px;
+    text-align: center;
+    width: 300px;
+    height: 150px;
+    background-color: #C4DDE0;
+    overflow: hidden;
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.botonCarta{
+    font-size: 15px;
+    width: 200px;
+    margin: 10px;
+    background-color: #00867D;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    border: 0px;
+}
