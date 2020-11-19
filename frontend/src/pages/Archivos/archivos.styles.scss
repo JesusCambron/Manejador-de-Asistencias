@@ -1,0 +1,93 @@
+.Titulos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 25px 0;
+    
+    & .titulo-clase{
+        font-size: 48px;
+    }
+    & .titulo-hora{
+        font-size: 24px;
+    }
+}
+.box-archivos{
+    background-color: #C4DDE0;
+    width: 60vw;
+    border-radius: 15px;
+    margin:auto;
+
+    .box-agregar{
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 200px;
+
+        & .fa-plus{
+            font-size: 40px;
+            transition: color .4s ease-in-out;
+
+            &:hover{
+                color: white;
+                cursor: pointer;
+            }
+        }
+        
+    }
+
+    .tabla-archivos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+
+        & .table-row{
+            border: none;
+            display: grid;
+            grid-template-columns: 150px 1fr 50px;
+            align-items: center;
+            justify-content: center;
+            width: 85%;
+            margin-top: 5px;
+
+            & .row-fecha{
+                font-weight: bold;
+            }
+            & .detalles-item{
+                background-color: white;
+                display: flex;
+                justify-content: flex-end;
+                border-radius: 2px;
+                height: 50px;
+
+                & .row-nombre{
+                    font-size: 18px;
+                }
+                & .fa-file-csv{
+                    color: #2e7d32;
+                }
+            }
+            & .delete-row{
+                background-color: #E03636;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & .radio-delete{
+                    display: none;
+                }
+                & .fa-trash-alt{
+                    color: white;
+                    transition: color .4s ease;
+
+                    &:hover{
+                        cursor: pointer;
+                        color: black;
+                    }
+                }
+            }
+
+        }
+    }
+}
