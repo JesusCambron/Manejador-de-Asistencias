@@ -12,7 +12,7 @@ export default class SeccionGrupos extends Component {
                 <h1 className="titulo-miscursos">Mis cursos</h1>
                 <div className="carta-grupos">
                 {this.props.grupos.map((grup) => (
-                    <CartaGrupo grupo={grup} ></CartaGrupo>
+                    <CartaGrupo usuario = {this.props.usuario} loadListaAlumnos={this.props.loadListaAlumnos} loadGrupoSeleccionado={this.props.loadGrupoSeleccionado} onRouteChange={this.props.onRouteChange} grupo={grup} ></CartaGrupo>
                 ))}
                 </div>
             </div>
