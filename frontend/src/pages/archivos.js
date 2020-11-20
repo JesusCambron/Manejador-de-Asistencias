@@ -14,7 +14,7 @@ export const archivos = [
     {
         id: 3,
         nombre: "prototipos",
-        fecha: "23/04/1592",
+        fecha: "23/04/1594",
         unidad: 1
     },
     {
@@ -38,7 +38,7 @@ export const archivos = [
     {
         id: 7,
         nombre: "prototipos",
-        fecha: "23/04/1592",
+        fecha: "23/04/1585",
         unidad: 1
     },
     {
@@ -46,6 +46,12 @@ export const archivos = [
         nombre: "prototipos",
         fecha: "23/04/1888",
         unidad: 2
-    }
+    },
+    {
+        id: 9,
+        nombre: "prototipos",
+        fecha: "23/05/1645",
+        unidad: 3
+    },
   ];
   

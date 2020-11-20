@@ -10,21 +10,30 @@ class Archivos extends React.Component{
     constructor(){
         super()
         this.state={
-            unidad:1
+            archivos:archivos,
+            unidadActual:1
         }
     }
 
     siguienteUnidad=()=>{
-        this.setState({unidad:this.state.unidad+1})
+        this.setState({unidadActual:this.state.unidadActual+1})
     }
 
     anteriorUnidad=()=>{
-        if(this.state.unidad>1){
-            this.setState({unidad:this.state.unidad-1})
+        if(this.state.unidadActual>1){
+            this.setState({unidadActual:this.state.unidadActual-1})
         }
     }
+
+    onChange=(e)=>{
+            const a=this.state.archivos.findIndex(archivo=>archivo.id==e.target.value)
+            this.state.archivos.splice(a,1)
+            this.setState({archivos:archivos})
+    }
+
     render(){
-        const {unidad}=this.state
+        const {archivos,unidadActual}=this.state
+        console.log(archivos)
         return (
             <>
                 <Menu />
@@ -36,7 +45,7 @@ class Archivos extends React.Component{
                     <div className='box-agregar'>
                         <div className='box-agregar-titulo'>
                             <i class="fas fa-chevron-left" onClick={this.anteriorUnidad}></i>
-                            <h3 >Unidad {unidad}</h3>
+                            <h3 >Unidad {unidadActual}</h3>
                             <i class="fas fa-chevron-right" onClick={this.siguienteUnidad}></i>
                         </div>
                         <i class="fas fa-plus"></i>
@@ -44,7 +53,7 @@ class Archivos extends React.Component{
                     <table className='tabla-archivos'>
                         {
                             archivos
-                            .filter(({unidad})=>unidad==this.state.unidad)
+                            .filter(({unidad})=>unidad==this.state.unidadActual)
                             .map(({id,nombre,fecha})=>(
                             <tr className='table-row' key={id}>
                                 <td className='row-fecha'>{fecha}</td>
@@ -53,7 +62,7 @@ class Archivos extends React.Component{
                                     <i class="fas fa-file-csv"></i>
                                 </div>
                                 <td className='delete-row'>
-                                    <input type="radio" onChange={(e)=> console.log(e.target.value)} name='delete' id={`delete-btn-${id}`} value={id} className='radio-delete'/>
+                                    <input type="checkbox" value={id} onChange={this.onChange} name='delete' id={`delete-btn-${id}`} className='radio-delete'/>
                                     <label htmlFor={`delete-btn-${id}`}>
                                             <i class="fas fa-trash-alt"></i>
                                     </label>
@@ -66,7 +75,5 @@ class Archivos extends React.Component{
             </>
         );
     }
-    
 };
-
 export default Archivos;
