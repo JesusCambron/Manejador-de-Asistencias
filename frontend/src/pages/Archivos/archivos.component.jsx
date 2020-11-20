@@ -7,7 +7,24 @@ import './archivos.styles.scss'
 import {archivos} from '../archivos'
 
 class Archivos extends React.Component{
+    constructor(){
+        super()
+        this.state={
+            unidad:1
+        }
+    }
+
+    siguienteUnidad=()=>{
+        this.setState({unidad:this.state.unidad+1})
+    }
+
+    anteriorUnidad=()=>{
+        if(this.state.unidad>1){
+            this.setState({unidad:this.state.unidad-1})
+        }
+    }
     render(){
+        const {unidad}=this.state
         return (
             <>
                 <Menu />
@@ -17,11 +34,18 @@ class Archivos extends React.Component{
                 </div>
                 <div className='box-archivos'>
                     <div className='box-agregar'>
+                        <div className='box-agregar-titulo'>
+                            <i class="fas fa-chevron-left" onClick={this.anteriorUnidad}></i>
+                            <h3 >Unidad {unidad}</h3>
+                            <i class="fas fa-chevron-right" onClick={this.siguienteUnidad}></i>
+                        </div>
                         <i class="fas fa-plus"></i>
                     </div>
                     <table className='tabla-archivos'>
                         {
-                            archivos.map(({id,nombre,fecha})=>(
+                            archivos
+                            .filter(({unidad})=>unidad==this.state.unidad)
+                            .map(({id,nombre,fecha})=>(
                             <tr className='table-row' key={id}>
                                 <td className='row-fecha'>{fecha}</td>
                                 <div className='detalles-item'>

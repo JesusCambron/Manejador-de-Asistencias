@@ -67,7 +67,6 @@ class TablaCursoGrupos extends Component{
                 this.props.loadListaCurso(listaCursos);
                
                 
-               
                 }).catch(err=>console.log(err))
     }
 
