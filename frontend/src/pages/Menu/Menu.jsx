@@ -18,19 +18,20 @@ class Menu extends Component{
                
             }).then(response=>response.json())
             .then(listaCursos=>{
-                /*if(user){
-                    this.props.loadUser(user)
-                    this.props.onRouteChange('signin')
-                }*/
-               
+                
+        
                 this.props.loadListaCurso(listaCursos);
-               
+                this.props.onRouteChange('TablaCursoGrupos')
                 
                
                 }).catch(err=>console.log(err))
-        
-        
-        this.props.onRouteChange('TablaCursoGrupos')
+    }
+
+
+    mostrarGrupo=()=>{
+
+        this.props.onRouteChange('TablaGrupos')
+
     }
 
     cerrarSesion=()=>{
@@ -52,14 +53,14 @@ class Menu extends Component{
                                         <a onClick={this.mostrar}  >administrar cursos</a>
                                     </li>
                                     <li>
-                                    <a>administrar grupos</a>
+                                    <a onClick={this.mostrarGrupo}>administrar grupos</a>
                                     </li> 
                                 </ul>
                         </li>
-                        <li><a href = "4"><i className="fas fa-clipboard-check"></i>ver asistencia</a></li>
+                        <li><i className="fas fa-clipboard-check"></i>ver asistencia</li>
                         <li className="opcion-profesor">
                             <div className = "info-profesor">
-                                <h4>juan perez</h4>
+                                <h4>{this.props.nombreUsuario}</h4>
                                 <h4>profesor</h4>
                                 <p className="cerrar-sesion" onClick={this.cerrarSesion}>Cerrar Sesión</p>
                             </div>

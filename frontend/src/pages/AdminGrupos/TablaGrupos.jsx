@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './TablaCursoGrupos.css'
+import './TablaGrupos.css'
 //import {cursos} from '../Cursos'
 
 
-class TablaCursoGrupos extends Component {
+class TablaGrupos extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,7 +28,7 @@ class TablaCursoGrupos extends Component {
         this.state.cursos.map((user) => {
             if (user._id == this.state.seleccion) {
                 this.props.loadCurso(user)
-                this.props.onRouteChange("FormCursoEditar")
+                this.props.onRouteChange("FormGrupoEditar")
 
             }
         })
@@ -53,32 +53,12 @@ class TablaCursoGrupos extends Component {
             then(
                 this.actualizarTabla()
 
-<<<<<<< HEAD
-        fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
-                method:'get',
-                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
-            })
-               
-            }).then(response=>response.json())
-            .then(listaCursos=>{
-                /*if(user){
-                    this.props.loadUser(user)
-                    this.props.onRouteChange('signin')
-                }*/
-               
-                console.log("Lista de menu:", listaCursos[0]._id)
-                this.props.loadListaCurso(listaCursos);
-               
-                
-                }).catch(err=>console.log(err))
-=======
 
             )
 
             .catch(err => console.log(err))
 
         document.getElementsByClassName("confir-eliminar")[0].style.display = "none"
->>>>>>> master
     }
 
     confirmarEliminar = () => {
@@ -93,13 +73,13 @@ class TablaCursoGrupos extends Component {
     render() {
         return (
             <div>
-                <h2>Administrar Curso</h2>
+                <h2>Administrar Grupo</h2>
 
                 <div className="tamaño">
                     <table className="tabla">
                         <thead>
                             <tr>
-                                <th className="table nombre-curso">Nombre del curso</th>
+                                <th className="table nombre-curso">Nombre del grupo</th>
                                 <th className="table nombre"></th>
                             </tr>
 
@@ -120,7 +100,7 @@ class TablaCursoGrupos extends Component {
                     </table>
                 </div>
                 <div className="botones">
-                    <button onClick={() => this.props.onRouteChange('FormCurso')} className="boton-agregar">Agregar</button>
+                    <button onClick={() => this.props.onRouteChange('FormGrupo')} className="boton-agregar">Agregar</button>
                     <button onClick={this.editarCurso} className="boton-editar">Editar</button>
                     <button className="boton-eliminar" onClick={this.confirmarEliminar}>Eliminar</button>
 
@@ -153,4 +133,4 @@ class TablaCursoGrupos extends Component {
 
 
 
-export default TablaCursoGrupos;
+export default TablaGrupos;

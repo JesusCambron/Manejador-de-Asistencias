@@ -9,6 +9,9 @@ import FormCurso from './pages/FormCurso/FormCurso';
 import FormCursoEditar from './pages/FormCursoEditar/FormCursoEditar';
 import Archivos from './pages/Archivos/archivos.component';
 import Menu from './pages/Menu/Menu'
+import TablaGrupos from './pages/AdminGrupos/TablaGrupos'
+import FormGrupo from './pages/AdminGrupos/FormGrupo'
+import FormGrupoEditar from './pages/AdminGrupos/FormGrupoEditar'
 
 const initialState=
 {
@@ -82,7 +85,8 @@ class App extends React.Component{
   }
 
   render(){
-    const {route,user}=this.state
+    const {route,user,cursos}=this.state
+  
     
     return (
       <>
