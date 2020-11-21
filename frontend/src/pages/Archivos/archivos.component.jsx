@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Menu from '../Menu/Menu'
+import Modal from '../../components/Modal/modal.component'
 
 import './archivos.styles.scss'
 
@@ -11,8 +12,16 @@ class Archivos extends React.Component{
         super()
         this.state={
             archivos:archivos,
-            unidadActual:1
+            unidadActual:1,
+            modal:false,
+            respuesta:false,
+            accion:'',
+            elementoTemporal:0
         }
+    }
+
+    setRespuesta=()=>{
+        this.setState({respuesta:!this.state.respuesta})
     }
 
     siguienteUnidad=()=>{
@@ -25,15 +34,23 @@ class Archivos extends React.Component{
         }
     }
 
-    onChange=(e)=>{
-            const a=this.state.archivos.findIndex(archivo=>archivo.id==e.target.value)
-            this.state.archivos.splice(a,1)
-            this.setState({archivos:archivos})
+    mostrarModal=(e,action)=>{
+        this.setState({accion:action})
+        this.setState({modal:!this.state.modal})
     }
 
+    onChange=(e)=>{
+        this.setState({elementoTemporal:this.state.archivos.findIndex(archivo=>archivo.id==e.target.value)})
+    }
+
+    eliminar = () => {
+        this.state.archivos.splice(this.state.elementoTemporal,1)
+        this.setState({archivos:archivos})
+        this.setState({modal:!this.state.modal})
+    }
+    
     render(){
         const {archivos,unidadActual}=this.state
-        console.log(archivos)
         return (
             <>
                 <Menu />
@@ -48,7 +65,7 @@ class Archivos extends React.Component{
                             <h3 >Unidad {unidadActual}</h3>
                             <i class="fas fa-chevron-right" onClick={this.siguienteUnidad}></i>
                         </div>
-                        <i class="fas fa-plus"></i>
+                        <i class="fas fa-plus" onClick={(e)=>{this.mostrarModal(e,'agregar')}}></i>
                     </div>
                     <table className='tabla-archivos'>
                         {
@@ -62,7 +79,7 @@ class Archivos extends React.Component{
                                     <i class="fas fa-file-csv"></i>
                                 </div>
                                 <td className='delete-row'>
-                                    <input type="checkbox" value={id} onChange={this.onChange} name='delete' id={`delete-btn-${id}`} className='radio-delete'/>
+                                    <input type="checkbox" value={id} onChange={this.onChange} onClick={(e)=>{this.mostrarModal(e,'eliminar')}} name='delete' id={`delete-btn-${id}`} className='radio-delete'/>
                                     <label htmlFor={`delete-btn-${id}`}>
                                             <i class="fas fa-trash-alt"></i>
                                     </label>
@@ -72,6 +89,7 @@ class Archivos extends React.Component{
                         }
                     </table>
                 </div>
+                <Modal onAccept={this.eliminar} onClose={this.mostrarModal} mostrar={this.state.modal} accion={this.state.accion}/>
             </>
         );
     }

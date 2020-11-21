@@ -1,0 +1,100 @@
+button {
+    background: none;
+    border: 0;
+    color: inherit;
+    /* cursor: default; */
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-user-select: none; /* for button */
+     -webkit-appearance: button; /* for input */
+       -moz-user-select: none;
+        -ms-user-select: none;
+        &:focus{
+            outline: none;
+        }
+  }
+
+.overlay{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    background-color:rgba(178,223,219,.5);
+
+
+    .modal-archivos{
+        width: 33%;
+        height: 250px;
+        background-color: #dddddd;
+        border-radius: 5px;
+        padding: 25px;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        box-shadow: -15px 20px 10px 0 rgba(46, 49, 49, .2);
+
+        .modal-content{
+            .title-alert{
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .btn-box{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                height: 100px;
+
+                .btn{
+                    width: 100px;
+                    height: 50px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+                .btn-accept{
+                    background-color: #32CD32;
+                    transition: all .5s ease;
+                    &:hover{
+                        background-color: #228B22;
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
+                .btn-cancel{
+                    background-color: #E03636;
+                    transition: all .5s ease;
+                    &:hover{
+                        background-color: #a71616;
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        
+        & .close-btn{
+            clip-path: circle(50% at 50% 50%);
+            background-color: #ff3b30;  
+            height: 20px;
+            width: 20px;
+            float: right;
+            
+            .fa-times{
+                margin: auto;
+                font-size: 13px;
+                opacity: 0;
+                transition: .3s ease all;
+                height: 100%;
+                width: 100%;
+    
+    
+                &:hover{
+                    opacity: 1;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
