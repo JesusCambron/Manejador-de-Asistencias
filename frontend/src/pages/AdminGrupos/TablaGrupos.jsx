@@ -17,21 +17,21 @@ class TablaGrupos extends Component {
                 unidad: ""
             }
         }
-        console.log(this.state.grupos)
+    
 
     }
 
 
     handleChange = (e) => {
             this.setState({ seleccion: e.target.value })
-            console.log(e.target.value)
+         
     }
 
     editarGrupo = () => {
         this.state.grupos.map((grup) => {
             if (grup._id == this.state.seleccion) {
                 this.props.loadGrupo(grup)
-                console.log("grupo en tabla:",grup)
+            
                 this.recuperarCursos()
 
             }
@@ -48,7 +48,7 @@ class TablaGrupos extends Component {
 
 
     eliminarCurso = () => {
-        console.log(this.state.seleccion)
+       
         fetch(`http://localhost:3000/manejador/grupos/${this.state.seleccion}`, {
             method: 'delete',
             headers: new Headers({

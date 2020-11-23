@@ -95,9 +95,11 @@ class App extends React.Component{
       alumno:{
         id: data.id,
         nombre: data.nombre,
-        idGrupo: data.idGrupo
+        idGrupo: data.idGrupo,
+        idAlumno: data._id
       }
     })
+    console.log(data)
   }
 
   loadGrupoSeleccionado = (data) =>{

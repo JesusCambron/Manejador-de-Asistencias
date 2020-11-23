@@ -63,11 +63,11 @@ limpiarCampos=()=>{
 
 }
 ventanaConfirmacion=()=>{
-    /*
-    if(this.validarNombre()===false || this.validarHoras()===false  || this.validarUnidades()===false) {
+    
+    if(this.validarID()===false ||this.validarNombre()===false ) {
         return false
     }
-    */
+    
     
    
     this.insertar()
@@ -81,6 +81,7 @@ ventanaConfirmacion=()=>{
     document.getElementsByClassName("confirmar")[0].style.display = "block";
    
 }    
+
 /*
 nombreRepetido=()=>{
     const lista = this.state.cursos.filter(curs => curs.nombre === this.state.form.nombre)
@@ -88,13 +89,14 @@ nombreRepetido=()=>{
         return false
     }
 }
+*/
 
 
 validarNombre=()=>{
     const expNombreCurso= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
-    const nombretrim = this.state.form.nombre.trim().replace(/\s\s+/g, ' ')
+    const nombretrim = this.state.alumnoNuevo.nombre.trim().replace(/\s\s+/g, ' ')
 
-    if(nombretrim === "" || !expNombreCurso.test(nombretrim) || this.nombreRepetido() === false){
+    if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }
@@ -105,7 +107,17 @@ validarNombre=()=>{
         
     }
 }
-*/
+
+validarID=()=>{
+    if(this.state.alumnoNuevo.id === ""){
+        document.getElementById("id").style.border = "1px solid red"
+        return false
+    }
+    else{
+        document.getElementById("id").style.border = "1px solid black"
+        return true
+    }
+}
 
     render(){
         return(

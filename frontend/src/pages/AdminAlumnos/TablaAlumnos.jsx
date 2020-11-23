@@ -25,6 +25,7 @@ class TablaAlumnos extends Component {
         this.state.alumnos.map((alum) => {
             if (alum._id == this.state.seleccion) {
                 this.props.loadAlumno(alum);
+                console.log(alum)
                 this.props.onRouteChange("FormAlumnoEditar");
 
             }

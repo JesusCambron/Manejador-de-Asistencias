@@ -11,11 +11,7 @@ class FormGrupoEditar extends Component{
                 idCurso: this.props.grupo.idCurso,
                 nombreGrupo: this.props.grupo.nombreGrupo
             
-            /*
-            cursos: this.props.listaCursos,
-            nombre:this.props.curso.nombre,
-            horas:this.props.curso.horas,
-            unidad:this.props.curso.unidad*/
+    
         }
      
     }
@@ -32,7 +28,6 @@ editar=()=>{
         }) 
     }).then(response=>response.json())
     .then(user=>{
-       console.log(user)
         }).catch(err=>console.log(err))
 
 }
@@ -69,7 +64,6 @@ handleNombre = e =>{
         
         
     })
-    console.log(this.state.nuevoGrupo)
 }
     
 ventanaConfirmacion=()=>{
@@ -120,7 +114,7 @@ validarNombre=()=>{
                          <select name = "curso" onChange={this.handleChange}  id = "combo-cursos" className="combo-cursos">
                          {this.state.cursos.map(cur=>
                                 
-                                cur._id === this.state.idCurso ? <option selected key={cur._id} value={cur._id}>{cur.nombre}</option>:
+                                cur._id === this.state.idCurso ? <option  defaultValue={true} selected key={cur._id} value={cur._id}>{cur.nombre}</option>:
                                 <option key={cur._id} value={cur._id}>{cur.nombre}</option> 
                                 )}
                                 

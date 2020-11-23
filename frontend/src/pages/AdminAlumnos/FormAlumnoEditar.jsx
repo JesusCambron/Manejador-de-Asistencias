@@ -14,7 +14,7 @@ class FormAlumnoEditar extends Component{
     
 editar=()=>{
     
-    fetch(`http://localhost:3000/manejador/cursos/${this.props.curso.id}`,{
+    fetch(`http://localhost:3000/manejador/alumnos/${this.props.alumno.idAlumno}`,{
         method:'put',
         headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
     }),
@@ -26,23 +26,6 @@ editar=()=>{
     .then(user=>{
        console.log(user)
         }).catch(err=>console.log(err))
-
-/*
-        fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
-                method:'get',
-                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
-            })
-               
-            }).then(response=>response.json())
-            .then(listaCursos=>{
-                
-        
-                this.props.loadListaCurso(listaCursos);
-                
-                
-               
-                }).catch(err=>console.log(err))
-                */
 
 }
 
@@ -57,7 +40,6 @@ limpiarCampos=()=>{
 }
 onenombreChange=(e)=>{
     this.setState({nombre:e.target.value})
-    console.log(this.state.nombre)
 }
 oneidChange=(e)=>{
     this.setState({id:e.target.value})
@@ -65,15 +47,13 @@ oneidChange=(e)=>{
 
     
 ventanaConfirmacion=()=>{
-    if(this.validarNombre()===false || this.validarHoras()===false || this.validarUnidades()===false){
+    if(this.validarID() === false ||this.validarNombre()===false){
         return false
     }
     this.editar()
     
   
     document.getElementById("nombre").style.border = "1px solid black"
-    document.getElementById("horas").style.border = "1px solid black"
-    document.getElementById("unidad").style.border = "1px solid black"
     document.getElementsByClassName("confirmar")[0].style.display = "block";
 }   
 
@@ -98,7 +78,17 @@ validarNombre=()=>{
     else{
         document.getElementById("nombre").style.border = "1px solid black"
         return true
+    }
+}
 
+validarID=()=>{
+    if(this.state.id === ""){
+        document.getElementById("id").style.border = "1px solid red"
+        return false
+    }
+    else{
+        document.getElementById("id").style.border = "1px solid black"
+        return true
     }
 }
 
@@ -120,7 +110,7 @@ validarNombre=()=>{
 
                             <div>
                                 <label>ID: </label>
-                                <input className="alumno-id" value={this.state.id} type="text" name="id"  id="nombre" onChange={this.oneidChange} placeholder="ID del alumno"></input> 
+                                <input className="alumno-id" value={this.state.id} type="text" name="id"  id="id" onChange={this.oneidChange} placeholder="ID del alumno"></input> 
                             </div>
                             <div>
                                 <label>Nombre del alumno: </label>
