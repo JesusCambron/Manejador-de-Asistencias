@@ -1,73 +1,53 @@
 import React, {Component} from 'react';
-import './FormGrupo.css'
+import './FormAlumno.css'
 
-class FormGrupo extends Component{
+
+class FormAlumno extends Component{
     constructor(props){
         super(props);
         this.state = {
-            cursos: this.props.listaCursos,
-            
-            nuevoGrupo:{
-                idCurso: "",
-                curso:"",
-                nombreGrupo:"",
-            }
+            //cursos: this.props.listaCursos,
+            idGrupo: this.props.idGrupo,
+            alumnoNuevo:{
+                id: "",
+                nombre:"",
+
+            },
         }
-
+       
         
-
     }
     
 handleChange =e=>{
-    const index = e.target.selectedIndex
-   const value = e.target.options[index].value;
-   const nombre= e.target.options[index].text
-
     this.setState({
-        nuevoGrupo:{
-            idCurso: value,
-            curso: nombre,
-    
+        alumnoNuevo:{
+            ...this.state.alumnoNuevo,
+            [e.target.name]: e.target.value,
         }
     })
-    console.log(this.state.nuevoGrupo)
-    
-}
-
-handleNombre = e =>{
-    this.setState({
-        nuevoGrupo:{
-            ...this.state.nuevoGrupo,
-            nombreGrupo: document.getElementById("nombre").value
-
-        }
-        
-    })
-    console.log(this.state.nuevoGrupo)
 }
 insertar=()=>{
-/* Para que no se pueda agregar el mismo curso
+   
+    /*
     const lista = this.state.cursos;
     const obj = {nombre: this.state.form.nombre.trim().replace(/\s\s+/g, ' '), horas: hor, unidades:uni}
     lista.push(obj)
     this.setState({cursos: lista})
-*/
-    fetch(`http://localhost:3000/manejador/grupos/${this.props.usuario.id}`,{
+    */
+
+    fetch(`http://localhost:3000/manejador/alumnos/${this.props.usuario.id}`,{
             headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
             }),
             method:'post',
             body:JSON.stringify({
-
-                idCurso: this.state.nuevoGrupo.idCurso,
-                nombreGrupo: this.state.nuevoGrupo.nombreGrupo.trim().replace(/\s\s+/g, ' '),
-                
+                id: this.state.alumnoNuevo.id,
+                nombre: this.state.alumnoNuevo.nombre.trim().replace(/\s\s+/g, ' '),
+                idGrupo: this.state.idGrupo
             })
             
         }).then(response=>response.json())
         .then()
         .catch(err => console.log(err))
-
-        console.log(this.state.nuevoGrupo)
 
             
 }
@@ -77,33 +57,44 @@ insertar=()=>{
 
 limpiarCampos=()=>{
     document.getElementById("nombre").value=""
-  
-   
+    document.getElementById("id").value=""
+    
+    this.setState({form:{nombre:"",horas:"",unidad:""}})
 
 }
 ventanaConfirmacion=()=>{
     
-    if(this.validarNombre()===false || this.state.nuevoGrupo.idCurso == ""){
+    if(this.validarID()===false ||this.validarNombre()===false ) {
         return false
     }
     
+    
    
     this.insertar()
-    this.setState({})
     this.limpiarCampos()
     
 
 
     document.getElementById("nombre").style.border = "1px solid black"
+    document.getElementById("id").style.border = "1px solid black"
+    
     document.getElementsByClassName("confirmar")[0].style.display = "block";
    
 }    
 
+/*
+nombreRepetido=()=>{
+    const lista = this.state.cursos.filter(curs => curs.nombre === this.state.form.nombre)
+    if(lista.length === 1){
+        return false
+    }
+}
+*/
 
 
 validarNombre=()=>{
     const expNombreCurso= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
-    const nombretrim = this.state.nuevoGrupo.nombreGrupo.trim().replace(/\s\s+/g, ' ')
+    const nombretrim = this.state.alumnoNuevo.nombre.trim().replace(/\s\s+/g, ' ')
 
     if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
         document.getElementById("nombre").style.border = "1px solid red"
@@ -117,38 +108,43 @@ validarNombre=()=>{
     }
 }
 
-
-
+validarID=()=>{
+    if(this.state.alumnoNuevo.id === ""){
+        document.getElementById("id").style.border = "1px solid red"
+        return false
+    }
+    else{
+        document.getElementById("id").style.border = "1px solid black"
+        return true
+    }
+}
 
     render(){
         return(
             
             <div>
                 
-                <h2>Grupo Nuevo</h2>
+                <h2>Alumno Nuevo</h2>
                   
 
                   
                      <div className="modal-entradas">
 
-
-                         <div className="segmento"> 
-                         <label className="labelito">Curso: </label>
-                         <select name = "curso" onChange={this.handleChange}  id = "combo-cursos" className="combo-cursos">
-                             <option  value="">Seleccione un curso</option>
-                             {this.state.cursos.map(cur=> 
-                                <option value={cur._id}>{cur.nombre}</option>
-                                )}
-
-                         </select>
-                         </div>
-                        <div className="segmento">
-                            <label className="labelito">Grupo: </label>
-                            <input className="grupo-nombre" required type="text" onChange={this.handleNombre} name="nombreGrupo" id="nombre"  placeholder="Nombre del grupo"></input> 
-                               
-                        </div>
-
+                            <div>
+                                <label>ID del alumno: </label>         
+                                <input className="alumno-id" required type="text" name="id"  id="id" onChange={this.handleChange} placeholder="ID del alumno"></input>
                             
+                            </div>
+                         
+                            <div>
+                                <label>Nombre del Alumno: </label>
+                                <input className="alumno-nombre" required type="text" name="nombre" id="nombre" onChange={this.handleChange} placeholder="Nombre del alumno"></input> 
+                               
+                            </div>
+
+                           
+
+                          
                     </div>
 
                             <div className="botones">
@@ -158,7 +154,7 @@ validarNombre=()=>{
                     
                     <div className="confirmar">
                         <div className="confirmar-centro">
-                            <h1>Se ha guardado un nuevo grupo</h1>
+                            <h1>Se ha guardado un nuevo alumno</h1>
                             <div className="confirmar-btns">
                                 <button className="si" onClick={()=>document.getElementsByClassName("confirmar")[0].style.display = "none"}>Aceptar</button>
                             </div>
@@ -175,4 +171,4 @@ validarNombre=()=>{
     
 }
 
-export default FormGrupo;
+export default FormAlumno;

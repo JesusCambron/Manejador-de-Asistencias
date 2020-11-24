@@ -53,7 +53,7 @@ class Archivos extends React.Component{
         const {archivos,unidadActual,accion}=this.state
         return (
             <>
-                <Menu token={this.props.user.token} onRouteChange={this.props.onRouteChange}/>
+                <Menu token={this.props.user.token} nombreUsuario={this.props.user.nombre} onRouteChange={this.props.onRouteChange}/>
                 <div className='Titulos'>
                     <h1 className='titulo-clase'>Clase</h1>
                     <p className='titulo-hora'>Hora</p>
