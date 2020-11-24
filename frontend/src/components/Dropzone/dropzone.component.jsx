@@ -1,6 +1,9 @@
 import React from 'react';
 import {useDropzone} from 'react-dropzone';
 
+
+import './dropzone.styles.scss'
+
 function Accept(props) {
   const {
     acceptedFiles,
@@ -8,7 +11,7 @@ function Accept(props) {
     getRootProps,
     getInputProps
   } = useDropzone({
-    accept: '.csv , '
+    accept: '.csv'
   });
 
   const acceptedFileItems = acceptedFiles.map(file => (
@@ -29,17 +32,15 @@ function Accept(props) {
   ));
 
   return (
-    <section className="container">
+    <section className="container-dropzone">
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-        <em>(Only *.jpeg and *.png images will be accepted)</em>
+        <i class="fas fa-file-upload"></i>
+        <p>Arrastra y suelta tus archivos aquí</p>
+        <em>(Solo archivos .csv)</em>
       </div>
       <aside>
-        <h4>Accepted files</h4>
         <ul>{acceptedFileItems}</ul>
-        <h4>Rejected files</h4>
-        <ul>{fileRejectionItems}</ul>
       </aside>
     </section>
   );

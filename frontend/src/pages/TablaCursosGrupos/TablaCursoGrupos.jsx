@@ -53,32 +53,12 @@ class TablaCursoGrupos extends Component {
             then(
                 this.actualizarTabla()
 
-<<<<<<< HEAD
-        fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
-                method:'get',
-                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
-            })
-               
-            }).then(response=>response.json())
-            .then(listaCursos=>{
-                /*if(user){
-                    this.props.loadUser(user)
-                    this.props.onRouteChange('signin')
-                }*/
-               
-                console.log("Lista de menu:", listaCursos[0]._id)
-                this.props.loadListaCurso(listaCursos);
-               
-                
-                }).catch(err=>console.log(err))
-=======
 
             )
 
             .catch(err => console.log(err))
 
         document.getElementsByClassName("confir-eliminar")[0].style.display = "none"
->>>>>>> master
     }
 
     confirmarEliminar = () => {

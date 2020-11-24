@@ -96,7 +96,7 @@ class App extends React.Component{
             :route==='signin'?<Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
             :(route==='register'? 
             <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
-            :route==='archivos'?<Archivos />
+            :route==='archivos'?<Archivos user={user} onRouteChange={this.onRouteChange}/>
             // :route==="TablaCursoGrupos"? <div><Menu onRouteChange={this.onRouteChange}  loadListaCurso={this.loadListaCurso} usuario={user} ></Menu>  <TablaCursoGrupos loadListaCurso={this.loadListaCurso} usuario={user} cursos={this.state.cursos} loadCurso={this.loadCurso} onRouteChange={this.onRouteChange}></TablaCursoGrupos></div>  
             // :route==="Menu"?<Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu>
             // :route==="FormCurso"? <div> <Menu onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} usuario={user}></Menu> <FormCurso usuario={user} onRouteChange={this.onRouteChange}></FormCurso></div>

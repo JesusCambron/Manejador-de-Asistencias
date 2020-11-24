@@ -50,10 +50,10 @@ class Archivos extends React.Component{
     }
     
     render(){
-        const {archivos,unidadActual}=this.state
+        const {archivos,unidadActual,accion}=this.state
         return (
             <>
-                <Menu />
+                <Menu token={this.props.user.token} onRouteChange={this.props.onRouteChange}/>
                 <div className='Titulos'>
                     <h1 className='titulo-clase'>Clase</h1>
                     <p className='titulo-hora'>Hora</p>
@@ -89,7 +89,12 @@ class Archivos extends React.Component{
                         }
                     </table>
                 </div>
-                <Modal onAccept={this.eliminar} onClose={this.mostrarModal} mostrar={this.state.modal} accion={this.state.accion}/>
+                {
+                    accion==='eliminar'?
+                        <Modal onAccept={this.eliminar} onClose={this.mostrarModal} mostrar={this.state.modal} accion={this.state.accion}/>
+                    :(accion==='agregar'?<Modal onAccept={this.agregar} onClose={this.mostrarModal} mostrar={this.state.modal} accion={this.state.accion} user={this.props.user}/>
+                    :<></>)
+                }
             </>
         );
     }

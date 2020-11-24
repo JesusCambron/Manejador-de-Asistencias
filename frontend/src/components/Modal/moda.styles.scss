@@ -27,7 +27,7 @@ button {
     .modal-archivos{
         width: 33%;
         height: 250px;
-        background-color: #dddddd;
+        background-color: #f5f5f5;
         border-radius: 5px;
         padding: 25px;
         position: absolute;
@@ -39,6 +39,33 @@ button {
             .title-alert{
                 font-size: 18px;
                 font-weight: bold;
+            }
+            .file-upload{
+                
+                margin-top: 30px;
+                border-radius: 5px;
+                height: 100px;
+                position: relative;
+                #file{
+                    display: none;
+                }
+                .lbl-file{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    border: #607d8b 2.5px dotted;
+                    background-color: #ffffff;
+                    transition: .5s ease;
+
+                    &:hover{
+                        cursor: pointer;
+                        color: white;
+                        background-color: #607d8b;
+                    }
+                }
             }
             .btn-box{
                 display: flex;
