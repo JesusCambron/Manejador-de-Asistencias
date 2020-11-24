@@ -4,7 +4,8 @@ const agregar = async (req, res) => {
     try {
         const { idCurso, nombreGrupo } = req.body;
         const { idUsuario } = req.params;
-        await gruposModel.create({ idCurso, idUsuario, nombreGrupo });
+        const grupo = await gruposModel.create({ idCurso, idUsuario, nombreGrupo });
+        crearCarpeta(grupo);
         res.send(`${nombreGrupo} ha sido creado`);
     } catch (error) {
         res.status(400).send(error);
@@ -36,6 +37,17 @@ const eliminar = async (req, res) => {
     } else {
         res.send(`Eliminado`);
     }
+}
+
+const fs = require("fs");
+const crearCarpeta = (grupo) => {
+    fs.mkdir(`./database/uploads/${grupo.idUsuario}/${grupo._id}`, (err) => {
+        if (err) {
+            console.log("Ocurrió un error al crear la carpeta uploads");
+        } else {
+            console.log("Carpeta uploads creada correctamente");
+        }
+    })
 }
 
 module.exports = {
