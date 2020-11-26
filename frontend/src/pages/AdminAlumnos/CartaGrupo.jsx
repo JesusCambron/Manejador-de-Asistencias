@@ -19,25 +19,27 @@ export default class CartaGrupo extends Component {
             this.props.onRouteChange('TablaAlumnos')
             
             }).catch(err=>console.log(err))
-
-
-            /*
-        this.props.loadGrupoSeleccionado(this.props.grupo._id)
-        this.props.onRouteChange('TablaAlumnos')
-        */
-
     }
+
+    onRouteArchivos = () => {
+        this.props.loadGrupoSeleccionado(this.props.grupo._id)
+        // console.log(this.props)
+        this.props.onRouteChange('archivos')
+    }
+    
 
     render() {
         return (
-            <div>
+            <>
                 
                 <div className="tamaño-carta">
                 <h3>{this.props.grupo.idCurso.nombre}</h3>
                 <h3>{this.props.grupo.nombreGrupo}</h3>
                 <button onClick={this.mostrarTabla}  className="botonCarta">Administrar Alumnos</button>
+                <button onClick={this.onRouteArchivos}  className="botonCarta">Ver archivos</button>
+                {/* <button onClick={this.props.onRouteChange('archivos')}  className="botonCarta">Ver asistencia</button> */}
                 </div>
-            </div>
+            </>
         )
     }
 

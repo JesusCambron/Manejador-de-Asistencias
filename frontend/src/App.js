@@ -146,18 +146,11 @@ class App extends React.Component{
       this.setState({route:'Menu'})
       console.log("ID grupo:",this.state.grupoSeleccionado)
     }
-
-    
-      
-              
-  
-
   }
 
   render(){
     const {route,user,cursos,grupos}=this.state
-  
-    
+ 
     return (
       <>
           {
@@ -176,7 +169,7 @@ class App extends React.Component{
             :route==="FormGrupoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu>  <FormGrupoEditar  usuario={user}  listaCursos={cursos} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} grupo={this.state.grupo} ></FormGrupoEditar></div>
             :route==="FormCurso"?         <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu> <FormCurso usuario={user} onRouteChange={this.onRouteChange} listaCursos={cursos} loadListaCurso={this.loadListaCurso}>   </FormCurso></div>
             :route==="FormCursoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu>  <FormCursoEditar  usuario={user}  listaCursos={cursos} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} curso={this.state.form} ></FormCursoEditar></div>
-            :route==='archivos'?<Archivos user={user} onRouteChange={this.onRouteChange}/>
+            :route==='archivos'?<div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu><Archivos user={user} onRouteChange={this.onRouteChange} grupos={this.state.grupos} grupo={this.state.grupoSeleccionado}/></div>
             :  <></>
             ) 
           }

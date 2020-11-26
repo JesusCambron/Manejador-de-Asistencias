@@ -10,10 +10,9 @@ const agregar = async (req, res) => {
 }
 
 const obtenerArchivos = async (req, res) => {
-    const { idGrupo } = req.params;
-    const { unidad } = req.body;
+    const { idGrupo,unidad } = req.params;
     const archivos = await archivosModel.find({ $and: [{ grupo: idGrupo }, { unidad }] });
-    res.json(archivos.path)
+    res.json(archivos)
 }
 
 const obtenerArchivo = async (req, res) => {
@@ -25,13 +24,13 @@ const obtenerArchivo = async (req, res) => {
 
 const fs = require("fs");
 const eliminar = async (req, res) => {
-    const { _id } = req.params;
-    const {path} = req.body;
+    const { _id} = req.params;
+    const {path} = req.body
     await archivosModel.deleteOne({ _id });
     try {
         fs.unlinkSync(path);
     } catch (err) {
-        return res.status(400).send("Error al eliminar archivo")
+        return res.status(400).send(err)
     }
     res.send(`Eliminado`);
 }

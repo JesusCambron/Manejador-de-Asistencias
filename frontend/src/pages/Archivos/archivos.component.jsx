@@ -1,22 +1,21 @@
 import React from 'react';
 
-import Menu from '../Menu/Menu'
+
 import Modal from '../../components/Modal/modal.component'
 
 import './archivos.styles.scss'
 
-import {archivos} from '../archivos'
-
 class Archivos extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
-            archivos:archivos,
+            archivos:[],
+            unidades:0,
             unidadActual:1,
             modal:false,
             respuesta:false,
             accion:'',
-            elementoTemporal:0
+            elementoTemporal:{}
         }
     }
 
@@ -25,7 +24,9 @@ class Archivos extends React.Component{
     }
 
     siguienteUnidad=()=>{
-        this.setState({unidadActual:this.state.unidadActual+1})
+        if(this.state.unidadActual<this.state.unidades){
+            this.setState({unidadActual:this.state.unidadActual+1})
+        }
     }
 
     anteriorUnidad=()=>{
@@ -40,20 +41,62 @@ class Archivos extends React.Component{
     }
 
     onChange=(e)=>{
-        this.setState({elementoTemporal:this.state.archivos.findIndex(archivo=>archivo.id==e.target.value)})
+        // console.log(this.state.archivos.find(archivo=>archivo._id==e.target.value));
+        this.setState({elementoTemporal:this.state.archivos.find(archivo=>archivo._id==e.target.value)})
     }
 
     eliminar = () => {
-        this.state.archivos.splice(this.state.elementoTemporal,1)
-        this.setState({archivos:archivos})
-        this.setState({modal:!this.state.modal})
+        // this.state.archivos.splice(this.state.elementoTemporal,1)
+        // this.setState({archivos:archivos})
+        // this.setState({modal:!this.state.modal})
+        // /${this.state.elementoTemporal.path}
+        fetch(`http://localhost:3000/manejador/archivos/${this.state.elementoTemporal._id}`,{
+            method:'delete',
+            headers: new Headers ({
+                "authorization": this.props.user.token,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }),
+            body:JSON.stringify({
+                path:this.state.elementoTemporal.path
+            })
+        })
+        .then(res=>
+            console.log(res)
+        )
+        .then(()=>{
+            this.setState({modal:!this.state.modal})
+        })
     }
+
+    fetchArhivos = () => {
+        fetch(`http://localhost:3000/manejador/archivos/${this.props.grupo}/${this.state.unidadActual}`,{
+            headers: {"authorization": this.props.user.token}
+        })
+        .then(res=>res.json())
+        .then(archivos=>{
+            this.setState({archivos:archivos})
+        }
+        )}
     
+
+    componentDidMount(){
+        const unidad=this.props.grupos.find(grupo=>grupo._id==this.props.grupo)
+        // console.log(unidad);
+        this.setState({unidades:unidad.idCurso.unidades})
+        this.fetchArhivos()
+    }
+
+    componentDidUpdate(prevProps,prevState){
+        if (prevState.unidadActual !== this.state.unidadActual || prevState.modal !== this.state.modal) {
+            this.fetchArhivos()
+          }
+    }
+
     render(){
         const {archivos,unidadActual,accion}=this.state
         return (
-            <>
-                <Menu token={this.props.user.token} nombreUsuario={this.props.user.nombre} onRouteChange={this.props.onRouteChange}/>
+            <> 
                 <div className='Titulos'>
                     <h1 className='titulo-clase'>Clase</h1>
                     <p className='titulo-hora'>Hora</p>
@@ -71,16 +114,16 @@ class Archivos extends React.Component{
                         {
                             archivos
                             .filter(({unidad})=>unidad==this.state.unidadActual)
-                            .map(({id,nombre,fecha})=>(
-                            <tr className='table-row' key={id}>
+                            .map(({_id,fecha})=>(
+                            <tr className='table-row' key={_id}>
                                 <td className='row-fecha'>{fecha}</td>
                                 <div className='detalles-item'>
-                                    <td className='row-nombre'>{nombre}</td>
+                                    <td className='row-nombre'>Archivo.cv</td>
                                     <i class="fas fa-file-csv"></i>
                                 </div>
                                 <td className='delete-row'>
-                                    <input type="checkbox" value={id} onChange={this.onChange} onClick={(e)=>{this.mostrarModal(e,'eliminar')}} name='delete' id={`delete-btn-${id}`} className='radio-delete'/>
-                                    <label htmlFor={`delete-btn-${id}`}>
+                                    <input type="checkbox" value={_id} onChange={this.onChange} onClick={(e)=>{this.mostrarModal(e,'eliminar')}} name='delete' id={`delete-btn-${_id}`} className='radio-delete'/>
+                                    <label htmlFor={`delete-btn-${_id}`}>
                                             <i class="fas fa-trash-alt"></i>
                                     </label>
                                 </td>
@@ -92,7 +135,7 @@ class Archivos extends React.Component{
                 {
                     accion==='eliminar'?
                         <Modal onAccept={this.eliminar} onClose={this.mostrarModal} mostrar={this.state.modal} accion={this.state.accion}/>
-                    :(accion==='agregar'?<Modal onAccept={this.agregar} onClose={this.mostrarModal} mostrar={this.state.modal} accion={this.state.accion} user={this.props.user}/>
+                    :(accion==='agregar'?<Modal grupo={this.props.grupo} unidad={this.state.unidadActual} onClose={this.mostrarModal} mostrar={this.state.modal} accion={this.state.accion} user={this.props.user}/>
                     :<></>)
                 }
             </>
