@@ -29,9 +29,44 @@ class Menu extends Component{
 
 
     mostrarGrupo=()=>{
+        fetch(`http://localhost:3000/manejador/grupos/${this.props.usuario.id}`,{
+                method:'get',
+                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
+            })
+               
+            }).then(response=>response.json())
+            .then(listaGrupos=>{
+                
+        
+        
+                this.props.loadListaGrupo(listaGrupos)
+                this.props.onRouteChange('TablaGrupos')
+                
+               
+                }).catch(err=>console.log(err))
+        
+                
+    }
 
-        this.props.onRouteChange('TablaGrupos')
-
+    mostrarMisCursos=()=>{
+       
+        fetch(`http://localhost:3000/manejador/grupos/${this.props.usuario.id}`,{
+            method:'get',
+            headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
+        })
+           
+        }).then(response=>response.json())
+        .then(listaGrupos=>{
+            
+    
+    
+            this.props.loadListaGrupo(listaGrupos)
+            this.props.onRouteChange('SeccionGrupos')
+            
+           
+            }).catch(err=>console.log(err))
+              
+          
     }
 
     cerrarSesion=()=>{
@@ -46,7 +81,7 @@ class Menu extends Component{
                 <nav className= "menu-head">
                     <ul className="menu-opciones">
                         <li className="menu-opciones-listado"><a ><i className="fas fa-home"></i>inicio</a></li>
-                        <li className="menu-opciones-listado"><a ><i className="fas fa-book"></i>mis cursos</a></li>
+                        <li className="menu-opciones-listado"><a onClick={this.mostrarMisCursos}><i className="fas fa-book"></i>mis cursos</a></li>
                         <li className="menu-opciones-listado"><a ><i className="fas fa-book-medical"></i>administrar mis cursos</a>
                                 <ul className="menu-cursos">
                                     <li>
