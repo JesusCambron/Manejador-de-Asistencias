@@ -10,10 +10,10 @@ const agregar = async (req, res) => {
 }
 
 const obtenerArchivos = async (req, res) => {
-    const { idGrupo } = req.params;
-    const { unidad } = req.body;
+    const { idGrupo, unidad } = req.params;
+    /* const { unidad } = req.body; */
     const archivos = await archivosModel.find({ $and: [{ grupo: idGrupo }, { unidad }] });
-    res.json(archivos.path)
+    res.json(archivos)
 }
 
 const obtenerArchivo = async (req, res) => {
