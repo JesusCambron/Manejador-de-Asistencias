@@ -4,6 +4,7 @@ const agregar = async(req, res) =>{
     try {
         const {id, nombre, idGrupo} = req.body;
         const {idMaestro} = req.params;
+        const alumno = await alumnosModel.find({idGrupo});
         await alumnosModel.create({id, nombre, idMaestro ,idGrupo});
         res.send(`${nombre} ha sido creado`);
     } catch (error) {

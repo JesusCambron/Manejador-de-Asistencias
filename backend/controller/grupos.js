@@ -4,9 +4,13 @@ const agregar = async (req, res) => {
     try {
         const { idCurso, nombreGrupo } = req.body;
         const { idUsuario } = req.params;
-        const grupo = await gruposModel.create({ idCurso, idUsuario, nombreGrupo });
-        crearCarpeta(grupo);
-        res.send(`${nombreGrupo} ha sido creado`);
+        const registro = await gruposModel.find({ $and: [{ idCurso }, { idUsuario }, {nombreGrupo}] });
+        if(registro.length == 0) {
+            await gruposModel.create({ idCurso, idUsuario, nombreGrupo });
+            return res.send(`${nombreGrupo} ha sido creado`);
+        } else {
+            return res.status(400).send(`Ya existe un registro con el nombre ${nombreGrupo}`);
+        }
     } catch (error) {
         res.status(400).send(error);
     }
@@ -37,17 +41,6 @@ const eliminar = async (req, res) => {
     } else {
         res.send(`Eliminado`);
     }
-}
-
-const fs = require("fs");
-const crearCarpeta = (grupo) => {
-    fs.mkdir(`./database/uploads/${grupo.idUsuario}/${grupo._id}`, (err) => {
-        if (err) {
-            console.log("Ocurrió un error al crear la carpeta uploads");
-        } else {
-            console.log("Carpeta uploads creada correctamente");
-        }
-    })
 }
 
 module.exports = {
