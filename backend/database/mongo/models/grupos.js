@@ -4,7 +4,7 @@ const {Schema} = moongose;
 const schema = new Schema({
     idCurso: {type: Schema.Types.ObjectId, ref: "cursos"},
     idUsuario: {type: Schema.Types.ObjectId, ref: "usuarios"},
-    nombreGrupo:{type:String, unique: true ,required:true},
+    nombreGrupo:{type:String,required:true},
     //alumnos:[{type: Schema.Types.ObjectId, ref: "alumnos"}]
 }, {timestamps:true})
 
