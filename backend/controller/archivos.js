@@ -5,8 +5,13 @@ const agregar = async (req, res) => {
     const pathDoc = req.file.path;
     const idUsuario = req.params;
     fechaNueva = new Date(fecha);
-    const resp = await archivosModel.create({ grupo: idGrupo, unidad, fecha: fechaNueva, usuario: idUsuario.idUsuario, path: pathDoc });
-    res.send(resp);
+    const registro = await archivosModel.find({$and: [{grupo: idGrupo},{unidad},{fecha: fechaNueva}]})
+    if(registro.length == 0) {
+        const resp = await archivosModel.create({ grupo: idGrupo, unidad, fecha: fechaNueva, usuario: idUsuario.idUsuario, path: pathDoc });
+        return res.send(resp);
+    } else {
+        return res.status(400).send(`Ya existe un registro en esta fecha`);
+    }
 }
 
 const obtenerArchivos = async (req, res) => {

@@ -2,7 +2,7 @@ const moongose = require("mongoose");
 const {Schema} = moongose;
 
 const schema = new Schema({
-    id:{type:String, unique: true ,required:true},
+    id:{type:String,required:true},
     nombre:{type:String, required:true},
     idMaestro:{type: Schema.Types.ObjectId, ref:"usuarios"},
     idGrupo:{type: Schema.Types.ObjectId, ref:"grupos"}

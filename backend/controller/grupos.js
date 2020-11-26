@@ -24,10 +24,16 @@ const obtenerGrupos = async (req, res) => {
 
 const modificar = async (req, res) => {
     try {
-        const { idCurso, nombreGrupo } = req.body;
+        const { idCurso, nombreGrupo,idUsuario } = req.body;
         const { _id } = req.params;
+        const registro = await gruposModel.find({ $and: [{ idCurso }, { idUsuario }, {nombreGrupo}] });
+        if(registro.length == 1) {
+            if(registro[0]._id != _id) {
+                return res.status(400).send(`Ya existe un registro con el nombre ${nombre}`);
+            }
+        }
         await gruposModel.findByIdAndUpdate(_id, { idCurso, nombreGrupo });
-        res.send(`${nombreGrupo} ha sido actualizado`);
+        return res.send(`${nombreGrupo} ha sido actualizado`);
     } catch (error) {
         res.status(400).send(error);
     }
