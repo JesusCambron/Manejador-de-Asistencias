@@ -1,4 +1,4 @@
-const {mongo:{modelosMongoDB:{cursosModel}}} = require("../database/index");
+const {mongo:{modelosMongoDB:{cursosModel,gruposModel,alumnosModel}}} = require("../database/index");
 
 const agregar = async(req, res) =>{
     try {
@@ -27,13 +27,15 @@ const modificar = async (req,res)=>{
     try {
         const {nombre, horas, unidades, idUsuario} = req.body;
         const {_id} = req.params;
+        console.log(nombre, idUsuario);
         const registro = await cursosModel.find({$and: [{nombre}, {idUsuario}]})
+        console.log(registro);
         if(registro.length == 1) {
             if(registro[0]._id != _id) {
                 return res.status(400).send(`Ya existe un registro con el nombre ${nombre}`);
             }
         }
-        await cursosModel.findByIdAndUpdate(_id, {nombre, horas, unidades});
+        await cursosModel.findByIdAndUpdate(_id, {nombre, horas, unidades,idUsuario});
         return res.send(`${nombre} ha sido actualizado`); 
     } catch (error) {
         res.status(400).send(error);

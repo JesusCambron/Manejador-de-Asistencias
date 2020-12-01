@@ -29,7 +29,7 @@ const modificar = async (req, res) => {
         const registro = await gruposModel.find({ $and: [{ idCurso }, { idUsuario }, {nombreGrupo}] });
         if(registro.length == 1) {
             if(registro[0]._id != _id) {
-                return res.status(400).send(`Ya existe un registro con el nombre ${nombre}`);
+                return res.status(400).send("Ya existe un registro con el mismo nombre en el mismo curso");
             }
         }
         await gruposModel.findByIdAndUpdate(_id, { idCurso, nombreGrupo });
