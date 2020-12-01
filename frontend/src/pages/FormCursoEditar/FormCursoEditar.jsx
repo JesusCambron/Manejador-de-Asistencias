@@ -21,7 +21,7 @@ editar=()=>{
         headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
     }),
         body:JSON.stringify({
-            
+            idUsuario: this.props.usuario.id,
             nombre: this.state.nombre.trim().replace(/\s\s+/g, ' '),
             horas: hor,
             unidades : uni
