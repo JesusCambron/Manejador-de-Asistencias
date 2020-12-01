@@ -1,4 +1,4 @@
-const {mongo:{modelosMongoDB:{cursosModel}}} = require("../database/index");
+const {mongo:{modelosMongoDB:{cursosModel,gruposModel,alumnosModel}}} = require("../database/index");
 
 const agregar = async(req, res) =>{
     try {
