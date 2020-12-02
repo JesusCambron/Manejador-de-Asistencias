@@ -31,22 +31,6 @@ editar=()=>{
        console.log(user)
         }).catch(err=>console.log(err))
 
-/*
-        fetch(`http://localhost:3000/manejador/cursos/${this.props.usuario.id}`,{
-                method:'get',
-                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
-            })
-               
-            }).then(response=>response.json())
-            .then(listaCursos=>{
-                
-        
-                this.props.loadListaCurso(listaCursos);
-                
-                
-               
-                }).catch(err=>console.log(err))
-                */
 
 }
 
@@ -71,7 +55,7 @@ oneunidadChange=(e)=>{
 }
     
 ventanaConfirmacion=()=>{
-    if(this.validarNombre()===false || this.validarHoras()===false || this.validarUnidades()===false){
+    if(this.validarNombre()===false || this.validarHoras()===false || this.validarUnidades()===false || this.validarNombreRepetido()===false){
         return false
     }
     this.editar()
@@ -135,6 +119,24 @@ validarUnidades=()=>{
     }
 }
 
+validarNombreRepetido=()=>{
+    let valor = true
+    this.state.cursos.map(curso => {
+        if(curso.nombre===this.state.nombre){
+            document.getElementById("nombre").style.border = "1px solid red"
+            valor = false
+            
+        }
+        /*
+        else{
+            document.getElementById("nombre").style.border = "1px solid black"
+            valor = true
+        }
+        */
+    })
+    return valor
+    
+}
 
     render(){
         return(

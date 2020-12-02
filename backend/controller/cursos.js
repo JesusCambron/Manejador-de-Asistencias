@@ -1,3 +1,5 @@
+const database = require("../database/index");
+
 const {mongo:{modelosMongoDB:{cursosModel,gruposModel,alumnosModel}}} = require("../database/index");
 
 const agregar = async(req, res) =>{
@@ -45,6 +47,7 @@ const modificar = async (req,res)=>{
 const eliminar = async (req,res) =>{
     const {_id} = req.params;
     await cursosModel.deleteOne({_id});
+    await gruposModel.deleteMany({idCurso:_id})
     res.send(`Eliminado`);
 }
 

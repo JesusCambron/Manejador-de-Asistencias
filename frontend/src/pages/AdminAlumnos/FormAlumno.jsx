@@ -7,6 +7,7 @@ class FormAlumno extends Component{
         super(props);
         this.state = {
             //cursos: this.props.listaCursos,
+            alumnos: this.props.listaAlumnos,
             idGrupo: this.props.idGrupo,
             alumnoNuevo:{
                 id: "",
@@ -109,7 +110,9 @@ validarNombre=()=>{
 }
 
 validarID=()=>{
-    if(this.state.alumnoNuevo.id === ""){
+    const lista = this.state.alumnos.filter(alum => alum.id === this.state.alumnoNuevo.id)
+
+    if(this.state.alumnoNuevo.id === "" || lista.length === 1){
         document.getElementById("id").style.border = "1px solid red"
         return false
     }

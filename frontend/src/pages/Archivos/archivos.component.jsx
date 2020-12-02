@@ -118,7 +118,7 @@ class Archivos extends React.Component{
                             <tr className='table-row' key={_id}>
                                 <td className='row-fecha'>{fecha}</td>
                                 <div className='detalles-item'>
-                                    <td className='row-nombre'>Archivo.cv</td>
+                                    <td className='row-nombre'>Archivo.csv</td>
                                     <i class="fas fa-file-csv"></i>
                                 </div>
                                 <td className='delete-row'>

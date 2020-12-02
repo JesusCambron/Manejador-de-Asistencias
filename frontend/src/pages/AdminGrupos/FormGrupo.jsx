@@ -5,10 +5,11 @@ class FormGrupo extends Component{
     constructor(props){
         super(props);
         this.state = {
+            grupos:[],
             cursos: this.props.listaCursos,
             
             nuevoGrupo:{
-                idCurso: "",
+                idCurso:"",
                 curso:"",
                 nombreGrupo:"",
             }
@@ -16,6 +17,26 @@ class FormGrupo extends Component{
 
         
 
+    }
+
+    componentWillMount(){
+        this.mostrarGrupo()
+    }
+
+    mostrarGrupo=()=>{
+        fetch(`http://localhost:3000/manejador/grupos/${this.props.usuario.id}`,{
+                method:'get',
+                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
+            })
+               
+            }).then(response=>response.json())
+            .then(listaGrupos=>{
+                this.setState({grupos: listaGrupos})
+                
+               
+                }).catch(err=>console.log(err))
+        
+                
     }
     
 handleChange =e=>{
@@ -25,8 +46,9 @@ handleChange =e=>{
 
     this.setState({
         nuevoGrupo:{
+            ...this.state.nuevoGrupo,
             idCurso: value,
-            curso: nombre,
+            
     
         }
     })
@@ -38,7 +60,7 @@ handleNombre = e =>{
     this.setState({
         nuevoGrupo:{
             ...this.state.nuevoGrupo,
-            nombreGrupo: document.getElementById("nombre").value
+            nombreGrupo: e.target.value
 
         }
         
@@ -83,7 +105,7 @@ limpiarCampos=()=>{
 }
 ventanaConfirmacion=()=>{
     
-    if(this.validarNombre()===false || this.state.nuevoGrupo.idCurso == ""){
+    if(this.state.nuevoGrupo.idCurso == "" || this.validarNombre()===false || this.validarGrupoRepetido() === false){
         return false
     }
     
@@ -102,10 +124,12 @@ ventanaConfirmacion=()=>{
 
 
 validarNombre=()=>{
-    const expNombreCurso= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
-    const nombretrim = this.state.nuevoGrupo.nombreGrupo.trim().replace(/\s\s+/g, ' ')
+    const expNombreGrupo= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
 
-    if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
+    const nombretrima = this.state.nuevoGrupo.nombreGrupo.trim().replace(/\s\s+/g, ' ');
+    console.log(nombretrima)
+
+    if(nombretrima === "" || !expNombreGrupo.test(nombretrima)){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }
@@ -114,6 +138,14 @@ validarNombre=()=>{
         
         return true
         
+    }
+}
+
+validarGrupoRepetido=()=>{
+    const lista = this.state.grupos.filter(grupo => grupo.idCurso._id === this.state.nuevoGrupo.idCurso)
+    console.log(lista)
+    if(lista.length === 1 && lista[0].nombreGrupo === this.state.nuevoGrupo.nombreGrupo){
+      return false
     }
 }
 

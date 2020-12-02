@@ -6,14 +6,34 @@ class FormGrupoEditar extends Component{
     constructor(props){
         super(props);
         this.state = {
+            grupos: [],
             cursos: this.props.listaCursos,
-              
-                idCurso: this.props.grupo.idCurso,
-                nombreGrupo: this.props.grupo.nombreGrupo
+            idCurso: this.props.grupo.idCurso,
+            nombreGrupo: this.props.grupo.nombreGrupo
             
     
         }
      
+    }
+
+    componentWillMount(){
+        this.mostrarGrupo()
+    }
+
+    mostrarGrupo=()=>{
+        fetch(`http://localhost:3000/manejador/grupos/${this.props.usuario.id}`,{
+                method:'get',
+                headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
+            })
+               
+            }).then(response=>response.json())
+            .then(listaGrupos=>{
+                this.setState({grupos: listaGrupos})
+                
+               
+                }).catch(err=>console.log(err))
+        
+                
     }
     
 editar=()=>{
@@ -69,7 +89,8 @@ handleNombre = e =>{
     
 ventanaConfirmacion=()=>{
     
-    if(this.validarNombre()===false){
+    //this.validarGrupoRepetido()
+    if(this.validarNombre()===false || this.validarGrupoRepetido()===false){
         return false
     }
     
@@ -95,6 +116,19 @@ validarNombre=()=>{
         return true
 
     }
+}
+
+validarGrupoRepetido=()=>{
+    const lista = this.state.grupos.filter(grupo => grupo.idCurso._id === this.state.idCurso)
+    console.log(lista)
+
+    let valor = true
+    lista.map(gru => {
+        if(gru.nombreGrupo===this.state.nombreGrupo){
+            valor = false
+        }
+    })
+    return valor
 }
 
 
