@@ -108,7 +108,7 @@ class TablaAlumnos extends Component {
 
                 <div className="confir-eliminar">
                     <div className="confir-centro">
-                        <h1>¿Estas seguro que quieres eliminar este curso?</h1>
+                        <h1>¿Estas seguro que quieres eliminar este alumno?</h1>
                         <div className="confir-btns">
                             <button className="si" onClick={this.eliminarAlumno}>Si</button>
                             <button className="no" onClick={() => document.getElementsByClassName("confir-eliminar")[0].style.display = "none"}>No</button>

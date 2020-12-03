@@ -73,6 +73,9 @@ class Menu extends Component{
         localStorage.removeItem('token')
         this.props.onRouteChange('signout')
     }
+    inicio=()=>{
+        this.props.onRouteChange('Menu')
+    }
 
     
     render(){
@@ -80,7 +83,7 @@ class Menu extends Component{
             <div className="full-width">
                 <nav className= "menu-head">
                     <ul className="menu-opciones">
-                        <li className="menu-opciones-listado"><a ><i className="fas fa-home"></i>inicio</a></li>
+                        <li className="menu-opciones-listado"><a onClick={this.inicio} ><i className="fas fa-home"></i>inicio</a></li>
                         <li className="menu-opciones-listado"><a onClick={this.mostrarMisCursos}><i className="fas fa-book"></i>mis cursos</a></li>
                         <li className="menu-opciones-listado"><a ><i className="fas fa-book-medical"></i>administrar mis cursos</a>
                                 <ul className="menu-cursos">
@@ -92,7 +95,7 @@ class Menu extends Component{
                                     </li> 
                                 </ul>
                         </li>
-                        <li><i className="fas fa-clipboard-check"></i>ver asistencia</li>
+                        <li><a><i className="fas fa-clipboard-check"></i>ver asistencia</a></li>
                         <li className="opcion-profesor">
                             <div className = "info-profesor">
                                 <h4>{this.props.nombreUsuario}</h4>

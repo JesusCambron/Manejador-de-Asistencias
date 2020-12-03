@@ -100,7 +100,6 @@ class App extends React.Component{
         idAlumno: data._id
       }
     })
-    console.log(data)
   }
 
   loadGrupoSeleccionado = (data) =>{
@@ -141,10 +140,10 @@ class App extends React.Component{
   componentDidMount(){
     if(localStorage.getItem('token')){
       const user=localStorage.getItem('token')
-      console.log(JSON.parse(user));
+  
       this.loadUser(JSON.parse(user))
       this.setState({route:'Menu'})
-      console.log("ID grupo:",this.state.grupoSeleccionado)
+
     }
   }
 
@@ -163,7 +162,7 @@ class App extends React.Component{
             :route==="TablaAlumnos"?  <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaGrupo={this.loadListaGrupo} loadListaCurso={this.loadListaCurso} usuario={user} ></Menu>   <TablaAlumnos loadListaAlumnos={this.loadListaAlumnos} listaAlumnos={this.state.alumnos} loadAlumno={this.loadAlumno} idGrupo={this.state.grupoSeleccionado} loadListaGrupo={this.loadListaGrupo}  usuario={user}  listaGrupos={grupos} loadGrupo={this.loadGrupo} onRouteChange={this.onRouteChange}></TablaAlumnos>  </div>
             :route==="FormAlumno"?         <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu> <FormAlumno idGrupo={this.state.grupoSeleccionado} usuario={user} onRouteChange={this.onRouteChange} listaAlumnos={this.state.alumnos} listaCursos={cursos}></FormAlumno></div>
             :route==="Menu"?           <div>  <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu> </div>
-            :route==="FormAlumnoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu>  <FormAlumnoEditar  usuario={user}  onRouteChange={this.onRouteChange} grupo={this.state.grupo} alumno={this.state.alumno} ></FormAlumnoEditar></div>
+            :route==="FormAlumnoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu>  <FormAlumnoEditar  usuario={user}  onRouteChange={this.onRouteChange} listaAlumnos={this.state.alumnos} grupo={this.state.grupo} alumno={this.state.alumno} ></FormAlumnoEditar></div>
             :route==="TablaGrupos"?       <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange}  loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo}  usuario={user} ></Menu>   <TablaGrupos  loadListaGrupo={this.loadListaGrupo} loadListaCurso={this.loadListaCurso} usuario={user}  listaGrupos={grupos} loadCurso={this.loadCurso} loadGrupo={this.loadGrupo}onRouteChange={this.onRouteChange}></TablaGrupos>  </div>
             :route==="FormGrupo"?         <div><Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu> <FormGrupo usuario={user} onRouteChange={this.onRouteChange} listaCursos={cursos}></FormGrupo></div>
             :route==="FormGrupoEditar"?   <div> <Menu nombreUsuario={this.state.user.nombre} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} loadListaGrupo={this.loadListaGrupo} usuario={user}></Menu>  <FormGrupoEditar  usuario={user}  listaCursos={cursos} onRouteChange={this.onRouteChange} loadListaCurso={this.loadListaCurso} grupo={this.state.grupo} ></FormGrupoEditar></div>

@@ -41,7 +41,7 @@ insertar=()=>{
             }),
             method:'post',
             body:JSON.stringify({
-                id: this.state.alumnoNuevo.id,
+                id: this.state.alumnoNuevo.id.trim().replace(/\s\s+/g, ' '),
                 nombre: this.state.alumnoNuevo.nombre.trim().replace(/\s\s+/g, ' '),
                 idGrupo: this.state.idGrupo
             })
@@ -94,10 +94,10 @@ nombreRepetido=()=>{
 
 
 validarNombre=()=>{
-    const expNombreCurso= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
+    const expNombreAlumno= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
     const nombretrim = this.state.alumnoNuevo.nombre.trim().replace(/\s\s+/g, ' ')
 
-    if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
+    if(nombretrim === "" || !expNombreAlumno.test(nombretrim)){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }
@@ -110,9 +110,12 @@ validarNombre=()=>{
 }
 
 validarID=()=>{
-    const lista = this.state.alumnos.filter(alum => alum.id === this.state.alumnoNuevo.id)
+    const expidAlumno= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,15}$/)
+    const idtrim = this.state.alumnoNuevo.id.trim().replace(/\s\s+/g, ' ')
 
-    if(this.state.alumnoNuevo.id === "" || lista.length === 1){
+    const lista = this.state.alumnos.filter(alum => alum.id === idtrim)
+
+    if(this.state.alumnoNuevo.id === "" || lista.length === 1 || !expidAlumno.test(idtrim)){
         document.getElementById("id").style.border = "1px solid red"
         return false
     }

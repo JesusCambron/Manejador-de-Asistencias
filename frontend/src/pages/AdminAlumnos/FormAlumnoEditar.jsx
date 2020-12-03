@@ -6,6 +6,7 @@ class FormAlumnoEditar extends Component{
     constructor(props){
         super(props);
         this.state = {
+            alumnos: this.props.listaAlumnos,
             id: this.props.alumno.id,
             nombre:this.props.alumno.nombre,
             
@@ -19,8 +20,8 @@ editar=()=>{
         headers: new Headers ({"authorization": this.props.usuario.token, 'Content-Type':'application/json'
     }),
         body:JSON.stringify({
-            idUsuario: this.props.usuario.id,
-            id: this.state.id,
+            idGrupo: this.props.grupo.id,
+            id: this.state.id.trim().replace(/\s\s+/g, ' '),
             nombre: this.state.nombre.trim().replace(/\s\s+/g, ' '),
         }) 
     }).then(response=>response.json())
@@ -32,12 +33,10 @@ editar=()=>{
 
 
 limpiarCampos=()=>{
+    document.getElementById("id").value=""
     document.getElementById("nombre").value=""
-    document.getElementById("horas").value=""
-    document.getElementById("unidad").value=""
     this.setState({ nombre:"",
-        horas:"",
-        unidad: "",})
+        id:"",})
 }
 onenombreChange=(e)=>{
     this.setState({nombre:e.target.value})
@@ -48,31 +47,24 @@ oneidChange=(e)=>{
 
     
 ventanaConfirmacion=()=>{
-    if(this.validarID() === false ||this.validarNombre()===false){
+    if(this.validarID() === false ||this.validarNombre()===false ){
         return false
     }
     this.editar()
     
-  
     document.getElementById("nombre").style.border = "1px solid black"
+    document.getElementById("id").style.border = "1px solid black"
+  
+
     document.getElementsByClassName("confirmar")[0].style.display = "block";
 }   
 
-/*
-nombreRepetido=()=>{
-    const lista = this.state.cursos.filter(curs => curs.nombre === this.state.nombre)
-    if(lista.length === 1){
-        return false
-    }
-    
-}
-*/
 
 validarNombre=()=>{
-    const expNombreCurso= RegExp(/^.{1,35}$/)
+    const expNombreAlumno= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,35}$/)
     const nombretrim = this.state.nombre.trim()
     nombretrim.replaceAll("\\s{2,}", " ");
-    if(nombretrim === "" || !expNombreCurso.test(nombretrim)){
+    if(nombretrim === "" || !expNombreAlumno.test(nombretrim)){
         document.getElementById("nombre").style.border = "1px solid red"
         return false
     }
@@ -83,7 +75,14 @@ validarNombre=()=>{
 }
 
 validarID=()=>{
-    if(this.state.id === ""){
+
+    const expidAlumno= RegExp(/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,-]{1,15}$/)
+    const idtrim = this.state.id.trim().replace(/\s\s+/g, ' ')
+
+    
+
+
+    if(this.state.id === "" || !expidAlumno.test(idtrim) || this.validarIDRepetido()===false){
         document.getElementById("id").style.border = "1px solid red"
         return false
     }
@@ -91,6 +90,21 @@ validarID=()=>{
         document.getElementById("id").style.border = "1px solid black"
         return true
     }
+}
+
+validarIDRepetido=()=>{
+    const lista = this.state.alumnos.filter(alum => alum.id !== this.props.alumno.id)
+
+    let valor = true
+    lista.map(alumno => {
+        if(alumno.id===this.state.id.trim().replace(/\s\s+/g, ' ')){
+            document.getElementById("id").style.border = "1px solid red"
+            valor = false
+            
+        }
+    })
+    console.log(valor)
+    return valor
 }
 
 

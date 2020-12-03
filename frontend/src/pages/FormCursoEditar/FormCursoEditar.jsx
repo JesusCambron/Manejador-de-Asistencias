@@ -120,8 +120,12 @@ validarUnidades=()=>{
 }
 
 validarNombreRepetido=()=>{
+
+    const lista = this.state.cursos.filter(cur => cur.nombre !== this.props.curso.nombre);
+
+    
     let valor = true
-    this.state.cursos.map(curso => {
+    lista.map(curso => {
         if(curso.nombre===this.state.nombre){
             document.getElementById("nombre").style.border = "1px solid red"
             valor = false
